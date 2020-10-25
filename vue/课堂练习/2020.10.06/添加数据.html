@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>添加数据</button>
+    <script>
+        let databook = [{
+            id: new Date().valueOf(),
+            name: '三国演义',
+            ctime: new Date().toLocaleDateString()
+        }, {
+            id: new Date().valueOf(),
+            name: '水浒传',
+            ctime: new Date().toLocaleDateString()
+        }, {
+            id: new Date().valueOf(),
+            name: '西游记',
+            ctime: new Date().toLocaleDateString()
+        }, {
+            id: new Date().valueOf(),
+            name: '红楼梦',
+            ctime: new Date().toLocaleDateString()
+        }]
+
+        let btn = document.querySelector('button');
+        btn.onclick = function() {
+            localStorage.setItem("books", JSON.stringify(databook));
+        }
+    </script>
+</body>
+
+</html>

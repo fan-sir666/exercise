@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father {
+            width: 500px;
+            height: 500px;
+            background-color: #ccc;
+        }
+        
+        .son {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="father" @click="father">
+            <div class="son" @click.stop="son"></div>
+        </div>
+        <button @click.once="jyc">只触发一次</button>
+        <a href="http://www.baidu.com" @click.prevent>百度</a>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let xm = Vue.createApp({
+            data() {
+                return {
+
+                }
+            },
+            methods: {
+                father() {
+                    console.log('我被father点击了');
+                },
+                son() {
+                    console.log('我被son点击了');
+                },
+                jyc() {
+                    console.log('我只能被点击一次');
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

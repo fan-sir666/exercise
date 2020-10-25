@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 模板 -->
+    <div id="app">
+        {{msg}}
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        // 数据层
+        // let mv = Vue.createApp({
+        //     data(){
+
+        //         return {
+        //             msg:'哈哈'
+        //         }
+
+        //     }
+
+        // })
+
+        // // 控制层
+        // mv.mount('#app');
+
+        // 控制器
+        const Counter = {
+            
+            data(){
+                return {
+                    msg:'Hello Vue'
+                }
+            }
+        }
+
+        Vue.createApp(Counter).mount('#app')
+    </script>
+</body>
+
+</html>

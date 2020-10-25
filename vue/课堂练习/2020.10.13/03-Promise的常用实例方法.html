@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 处理
+        let p = new Promise(function(resolve, reject) {
+            resolve('这是正确的结果');
+            // reject('这是错误的结果');
+        });
+        // 获取
+        p.then(function(data) {
+                    console.log(data);
+                }).catch(function(err) {
+                    console.log(err);
+                }).finally(function() {
+                    console.log("我执行了");
+                })
+    </script>
+</body>
+
+</html>

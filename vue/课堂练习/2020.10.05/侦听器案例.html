@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <span>用户名:</span> <input type="text" v-model.lazy="name">
+        <span v-cloak>{{tsyu}}</span>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    name: '',
+                    tsyu: ''
+                }
+            },
+            methods: {
+                yanzheng(name) {
+                    setTimeout(() => {
+                        if (name == '张三') {
+                            this.tsyu = '用户名已存在!!!'
+                        } else {
+                            this.tsyu = '用户名可以使用。'
+                        }
+                    }, 2000)
+                }
+            },
+            watch: {
+                name(val) {
+                    this.yanzheng(val);
+                    this.tsyu = '验证中,请等待...'
+                }
+            }
+        });
+        vm.mount('#app');
+    </script>
+</body>
+
+</html>

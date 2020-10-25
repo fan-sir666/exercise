@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="lang">浪起来</button>
+        <button @click="stop">快停下</button>
+        <h3>{{msg}}</h3>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let mv = Vue.createApp({
+            data() {
+                return {
+                    msg: '来了老弟,好嗨呦！！！',
+                    interId: null
+                }
+            },
+            methods: {
+                // 浪
+                lang() {
+                    if (this.interId !== null) return;
+                    this.interId = setInterval(() => {
+                        let sz = this.msg.slice(0, 1);
+                        let sy = this.msg.slice(1);
+                        this.msg = sy + sz
+                    }, 500)
+                },
+                // 停
+                stop() {
+                    clearInterval(this.interId);
+                    this.interId = null;
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

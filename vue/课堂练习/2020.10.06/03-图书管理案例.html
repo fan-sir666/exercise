@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .grid {
+            margin: auto;
+            width: 530px;
+            text-align: center;
+        }
+        
+        .grid table {
+            border-top: 1px solid #C2D89A;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed orange;
+            height: 35px;
+            line-height: 35px;
+        }
+        
+        .grid th {
+            background-color: orange;
+        }
+        
+        .grid .book {
+            padding-bottom: 10px;
+            padding-top: 5px;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div>
+                <h1>图书管理</h1>
+                <div class="book">
+                    <div>
+                        <label for="id">
+              编号：
+            </label>
+                        <input type="text" id="id" v-model="id" :disabled="flag">
+                        <label for="name">
+              名称：
+            </label>
+                        <input type="text" id="name" v-model="name">
+                        <button @click="addData">提交</button>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in books" :key="item.id">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.ctime}}</td>
+                        <td>
+                            <a href="" @click.prevent="editData(item.id)">修改</a>
+                            <span>|</span>
+                            <a href="" @click.prevent="removeData(item.id)">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    // 变量 id输入框默认能用
+                    flag: false,
+                    id: '',
+                    name: '',
+                    books: ''
+                }
+            },
+            created() {
+                // 获取本地数据
+                this.books = JSON.parse(localStorage.getItem('books') || []);
+            },
+            methods: {
+                //添加
+                addData() {
+                    // 修改
+                    if (this.flag) {
+                        // 通过id 找到对应数据的索引
+                        let index = this.books.findIndex(item => item.id == this.id);
+                        // 修改name 值
+                        this.books[index].name = this.name;
+                        // 清空输入框
+                        this.id = this.name = '';
+                    } else {
+                        this.books.push({
+                            id: new Date().valueOf(),
+                            name: this.name,
+                            ctime: new Date().toLocaleDateString()
+                        })
+
+                        // 清空输入框
+                        this.id = this.name = '';
+                    }
+                },
+                // 删除
+                removeData(id) {
+                    // 查找当前id 对应数据的索引值
+                    let index = this.books.findIndex(item => item.id == id);
+                    this.books.splice(index, 1);
+                },
+                // 修改
+                editData(id) {
+                    // 查找当前id 对应数据
+                    let arr = this.books.filter(item => item.id == id);
+                    // 回显数据
+                    this.id = arr[0].id;
+                    this.name = arr[0].name;
+                    // 将id输入框变为禁用
+                    this.flag = true;
+                }
+            },
+            updated() {
+                localStorage.setItem('books', JSON.stringify(this.books));
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

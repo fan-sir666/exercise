@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="add">点击添加</button>
+        <!-- <span v-if="flag">{{msg}}</span>
+        <h5 v-else-if="flag">哈哈哈</h5>
+        <h3 v-else>好嗨呦!</h3> -->
+        <span v-show="flag">{{msg}}</span>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    msg: '来了老弟',
+                    flag: true
+                }
+            },
+            methods: {
+                add() {
+                    this.flag = !this.flag
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

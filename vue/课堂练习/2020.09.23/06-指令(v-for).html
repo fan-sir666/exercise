@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li v-for="item in aStar">{{item}}</li> -->
+            <!-- <li v-for="item in aActor">{{item.name}}今年{{item.age}}岁,粉丝量{{item.fans}}</li> -->
+            <li v-for="item in aActor">{{item.name}}今年{{item.age}}岁,粉丝量{{item.fans}}
+                <ul v-if="item.arrObj">
+                    <li v-for="item in item.arrObj">{{item.name}}今年{{item.age}}岁,粉丝量{{item.fans}}</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    aStar: ["于文文", "佟丽娅", "杨幂", "高圆圆", "马思纯", "马冬梅", "张元乙", "袁华"],
+                    aActor: [{
+                        id: 1,
+                        name: '岳云鹏',
+                        age: 32,
+                        fans: '1000w'
+                    }, {
+                        id: 2,
+                        name: '张云雷',
+                        age: 34,
+                        fans: '10w'
+                    }, {
+                        id: 3,
+                        name: '郭麒麟',
+                        age: 20,
+                        fans: '100w',
+                        arrObj: [{
+                            id: 31,
+                            name: '郭哈哈',
+                            age: 20,
+                            fans: '100w',
+                        }]
+                    }, {
+                        name: '秦霄贤',
+                        age: 23,
+                        fans: '2000w'
+                    }]
+
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

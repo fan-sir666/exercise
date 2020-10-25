@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app {
+            width: 500px;
+            height: 500px;
+            background: yellow;
+        }
+        
+        div {
+            width: 300px;
+            height: 300px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        {{age}}
+        <zujian></zujian>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        // 注意  组件命名  使用短横线的方式  驼峰命名只能使用在字符窜模板中template  模板写在一个根元素当中
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    age: 18
+                }
+            }
+        });
+        vm.component('zujian', {
+            data() {
+                return {
+                    name: '张三'
+                }
+            },
+            template: `<div>{{name}}</div>`
+        })
+        vm.mount('#app');
+    </script>
+</body>
+
+</html>

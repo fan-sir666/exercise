@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <label for="">姓名</label><input type="text" v-model="username">
+        <!-- 按键修饰符 enter -->
+        <label for="">年龄</label><input type="text" v-model="age" @keyup.enter="jshao">
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    username: '',
+                    age: ''
+                }
+            },
+            methods: {
+                jshao() {
+                    alert(`我的名字叫${this.username},今年${this.age}岁`);
+                    this.username = this.age = '';
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

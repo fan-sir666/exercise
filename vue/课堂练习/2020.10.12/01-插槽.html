@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ccao>
+            <template v-slot:left>
+                三
+            </template>
+            <template #cen>
+                <input type="text" value="请输入">
+            </template>
+            <template v-slot:right>
+                <button>登录</button>
+            </template>
+            <template v-slot:default>
+                哈哈
+            </template>
+        </ccao>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({});
+        vm.component('ccao', {
+            template: `
+            <slot name = "left">文本</slot>
+            <slot name = "cen"></slot>
+            <slot name = "right"></slot>
+            <slot></slot>
+            `
+        });
+        vm.mount('#app')
+    </script>
+</body>
+
+</html>

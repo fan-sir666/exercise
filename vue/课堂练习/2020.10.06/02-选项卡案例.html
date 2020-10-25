@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .tab ul {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tab ul li {
+            box-sizing: border-box;
+            padding: 0;
+            float: left;
+            width: 100px;
+            height: 45px;
+            line-height: 45px;
+            list-style: none;
+            text-align: center;
+            border-top: 1px solid blue;
+            border-right: 1px solid blue;
+            cursor: pointer;
+        }
+        
+        .tab ul li:first-child {
+            border-left: 1px solid blue;
+        }
+        
+        .tab ul li.active {
+            background-color: orange;
+        }
+        
+        .tab div {
+            width: 500px;
+            height: 300px;
+            display: none;
+            text-align: center;
+            font-size: 30px;
+            line-height: 300px;
+            border: 1px solid blue;
+            border-top: 0px;
+        }
+        
+        .tab div.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="tab">
+            <ul>
+                <li v-for="(item,index) in alist" :key="item.id" :class="qhIndex == index ? 'active' : ' '" @click="toggle(index)">{{item.name}}</li>
+            </ul>
+            <div v-for="(item,index) in alist" :key="item.id" :class="qhIndex == index ? 'current' : ' '">
+                <img :src="item.imgSrc">
+            </div>
+        </div>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    qhIndex: 0,
+                    alist: [{
+                        id: 1,
+                        name: '高圆圆',
+                        imgSrc: './image/1.jpg'
+                    }, {
+                        id: 2,
+                        name: '王丽坤',
+                        imgSrc: './image/2.jpg'
+                    }, {
+                        id: 3,
+                        name: '刘涛',
+                        imgSrc: './image/3.jpg'
+                    }, {
+                        id: 4,
+                        name: '金晨',
+                        imgSrc: './image/4.jpg'
+                    }, {
+                        id: 5,
+                        name: '殷桃',
+                        imgSrc: './image/5.jpg'
+                    }]
+                }
+            },
+            methods: {
+                toggle(index) {
+                    this.qhIndex = index
+                }
+            }
+        });
+        vm.mount('#app');
+    </script>
+
+</body>
+
+</html>

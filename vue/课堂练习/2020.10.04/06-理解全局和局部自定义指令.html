@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 全局指令可以在任何地方使用 -->
+    <div id="app1">
+        <input type="text" v-qjzl="color">
+        <div id="app2">
+            <input type="text" v-jbzl1="color">
+        </div>
+        <div id="app3">
+            <input type="text" v-jbzl2="color">
+        </div>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        // 全局指令
+        let vm1 = Vue.createApp({
+            data() {
+                return {
+                    color: 'red'
+                }
+            },
+            directives: {
+                qjzl: {
+                    mounted(el, binding) {
+                        el.style.backgroundColor = binding.value
+                    }
+                }
+            }
+        }).mount('#app1');
+        // 局部指令
+        let vm2 = Vue.createApp({
+            data() {
+                return {
+                    color: 'yellow'
+                }
+            },
+            directives: {
+                jbzl1: {
+                    mounted(el, binding) {
+                        el.style.backgroundColor = binding.value
+                    }
+                }
+            }
+        }).mount('#app2');
+        let vm3 = Vue.createApp({
+            data() {
+                return {
+                    color: 'blue'
+                }
+            },
+            directives: {
+                jbzl2: {
+                    mounted(el, binding) {
+                        el.style.backgroundColor = binding.value
+                    }
+                }
+            }
+        }).mount('#app3');
+    </script>
+</body>
+
+</html>

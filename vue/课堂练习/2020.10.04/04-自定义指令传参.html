@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-zidy="obj" v-model="obj" @blur="cha">
+    </div>
+    <script src="./lib/vue-3.0.js "></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    obj: {
+                        name: '张三',
+                        color: 'yellow'
+                    }
+                }
+            },
+            methods: {
+                cha() {
+                    console.log(this.obj);
+                }
+            }
+        });
+        vm.directive('zidy', {
+            mounted(el, binding) {
+                console.log(binding);
+                el.value = binding.value.name;
+                el.style.backgroundColor = binding.value.color
+            }
+        })
+        vm.mount('#app');
+    </script>
+</body>
+
+</html>

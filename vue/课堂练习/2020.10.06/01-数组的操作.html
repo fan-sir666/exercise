@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="sgname">
+        <button @click="add">添加</button>
+        <button @click="remove">删除</button>
+        <button @click="tihuan">替换</button>
+        <ul v-for="item in asg">
+            <li>{{item}}</li>
+        </ul>
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    asg: ['苹果', '香蕉', '橘子'],
+                    sgname: ''
+                }
+            },
+            methods: {
+                add() {
+                    this.asg.push(this.sgname);
+                    this.sgname = ''
+                },
+                remove() {
+                    this.asg.pop();
+                },
+                tihuan() {
+                    let arr = this.asg.splice(0, 2);
+                    this.asg = arr;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

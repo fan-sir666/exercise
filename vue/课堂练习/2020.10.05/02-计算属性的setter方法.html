@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model.trim="xing"><input type="text" v-model.trim="ming"><input type="text" v-model.trim="name">
+    </div>
+    <script src="./lib/vue-3.0.js"></script>
+    <script>
+        let vm = Vue.createApp({
+            data() {
+                return {
+                    xing: '',
+                    ming: ''
+                }
+            },
+            computed: {
+                name: {
+                    // 获取
+                    get() {
+                        return this.xing + ' ' + this.ming;
+                    },
+                    set(val) {
+                        let arr = val.split(' ');
+                        this.xing = arr[0];
+                        this.ming = arr[1];
+                    }
+                }
+
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
