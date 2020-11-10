@@ -47,5 +47,5 @@ export default createStore({
       // console.log(context.state.itemtj);
     }
   },
-  modules: {}
+  getters: {}
 });

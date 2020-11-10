@@ -10,7 +10,7 @@
     <!-- <vReactive></vReactive> -->
 
     <!-- computed -->
-    <!-- <vComputed></vComputed> -->
+    <vComputed></vComputed>
 
     <!-- readonly -->
     <!-- <vReadonly></vReadonly> -->
@@ -18,7 +18,7 @@
     <!-- <vWatchEffect></vWatchEffect> -->
 
     <!-- watch -->
-    <vWatch></vWatch>
+    <!-- <vWatch></vWatch> -->
   </div>
 </template>
 
@@ -33,7 +33,7 @@
 // import vReactive from "@/components/vReactive.vue";
 
 // computed函数
-// import vComputed from "@/components/vComputed.vue";
+import vComputed from "@/components/vComputed.vue";
 
 // readonly函数
 // import vReadonly from "@/components/vReadonly.vue";
@@ -42,17 +42,17 @@
 // import vWatchEffect from "@/components/vWatchEffect.vue";
 
 // watch函数
-import vWatch from "@/components/vWatch.vue";
+// import vWatch from "@/components/vWatch.vue";
 export default {
   name: "App",
   components: {
     // vSetup,
     // vRef
     // vReactive
-    // vComputed
+    vComputed
     // vReadonly
     // vWatchEffect,
-    vWatch
+    // vWatch
   }
 };
 </script>

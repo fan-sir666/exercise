@@ -6,10 +6,10 @@
         <span class="score_num">{{ score }}</span>
         <span class="fenshu">分!</span>
       </header>
-      <div class="result_tip">{{ scoreTs }}</div>
+      <div class="result_tip">{{tsYu}}</div>
     </div>
 
-    <div class="share_button" @click="zlYc">再来一次</div>
+    <div class="share_button" @click="zLai">再来一次</div>
 
     <div class="share_code">
       <header class="share_header">关注葡萄之家,获取答案.</header>
@@ -19,63 +19,67 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { computed, reactive, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from 'vue-router';
 export default {
-  data() {
-    return {
-      score: 0,
-      scoreTs: "",
-      rightAnswer: [2, 6, 10, 14, 18], //正确答案
-      scoreTipsArr: [
-        "你说，是不是把知识都还给小学老师了？",
-        "还不错，但还需要继续加油哦！",
-        "不要嘚瑟还有进步的空间！",
-        "智商离爆表只差一步了！",
-        "你也太聪明啦，葡萄之家欢迎你！"
-      ]
-    };
-  },
-  computed: {
-    ...mapState(["itemtj"])
-  },
-  created() {
-    this.jSfs();
-    this.tsYu();
-  },
-  methods: {
-    // 计算分数
-    jSfs() {
-      this.itemtj.forEach((item, index) => {
-        if (item == this.rightAnswer[index]) {
-          this.score += 20;
+  setup() {
+    // vuex对象
+    let store = useStore();
+    // router对象
+    let router = useRouter();
+    //#region 计算分数
+    let score = ref(0);
+    let rightAnswer = reactive([2, 6, 10, 14, 18]); //正确答案
+    let subId = computed(() => store.state.subId);
+
+    function calc() {
+      subId.value.forEach((item, index) => {
+        if (item == rightAnswer[index]) {
+          score.value += 20;
         }
       });
-    },
-    tsYu() {
-      if (this.score <= 20) {
-        this.scoreTs = this.scoreTipsArr[0];
-        return;
-      }
-      if (this.score <= 40) {
-        this.scoreTs = this.scoreTipsArr[1];
-        return;
-      }
-      if (this.score <= 60) {
-        this.scoreTs = this.scoreTipsArr[2];
-        return;
-      }
-      if (this.score <= 80) {
-        this.scoreTs = this.scoreTipsArr[3];
-        return;
-      }
-      if (this.score <= 100) {
-        this.scoreTs = this.scoreTipsArr[4];
-        return;
-      }
-    },
-    zlYc() {
-      this.$router.push("/");
     }
+    calc();
+    //#endregion
+
+    //#region 提示语
+    let tsYu = ref("");
+    let scoreTipsArr = reactive([
+      "你说，是不是把知识都还给小学老师了？",
+      "还不错，但还需要继续加油哦！",
+      "不要嘚瑟还有进步的空间！",
+      "智商离爆表只差一步了！",
+      "你也太聪明啦，葡萄之家欢迎你！"
+    ]);
+
+    (function() {
+      if (score.value <= 20) {
+        tsYu.value = scoreTipsArr[0];
+      } else if (score.value <= 40) {
+        tsYu.value = scoreTipsArr[1];
+      } else if (score.value <= 60) {
+        tsYu.value = scoreTipsArr[2];
+      } else if (score.value <= 80) {
+        tsYu.value = scoreTipsArr[3];
+      } else if (score.value <= 100) {
+        tsYu.value = scoreTipsArr[4];
+      }
+    })();
+    //#endregion
+
+    //#region 再来一次
+    function zLai() {
+      router.push("/");
+      store.commit("clearData");
+    }
+    //#endregion
+
+    return {
+      score,
+      tsYu,
+      zLai
+    };
   }
 };
 </script>

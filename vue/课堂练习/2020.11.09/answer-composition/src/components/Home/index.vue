@@ -15,14 +15,30 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { useStore } from "vuex";
 export default {
-  computed: {
-    ...mapState(["zhqi"])
-  },
-  created() {
-    this.$store.commit("clearData");
+  setup() {
+    // vuex对象
+    let store = useStore();
+    //#region 获取周期
+    let zhqi = store.state.zhqi;
+    // console.log(zhqi);
+    //#endregion
+
+    //#region 调用清除itemtj的方法clearData
+    store.commit("clearData");
+    //#endregion
+
+    return {
+      zhqi
+    };
   }
+  // computed: {
+  //   ...mapState(["zhqi"])
+  // },
+  // created() {
+  //   this.$store.commit("clearData");
+  // }
 };
 </script>
 

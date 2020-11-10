@@ -3,25 +3,29 @@
     <section>
       <!-- 头部标签 -->
       <header class="top_tips">
-        <span class="num_tip">{{ zhqi }}</span>
+        <span class="num_tip">{{zhouQi}}</span>
       </header>
       <!-- 首页内容 -->
       <div>
         <div class="home_logo item_container_style"></div>
-        <router-link to="/item" class="start button_style"></router-link>
+        <router-link class="start button_style" to="/item"></router-link>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { useStore } from "vuex";
 export default {
-  computed: {
-    ...mapState(["zhqi"])
-  },
-  created() {
-    this.$store.commit("clearData");
+  setup() {
+    // vuex对象
+    let store = useStore();
+    // 获取属性
+    let zhouQi = store.state.zhouQi;
+
+    return{
+        zhouQi,
+    }
   }
 };
 </script>

@@ -41,51 +41,117 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { computed, ref } from "vue";
 export default {
-  data() {
-    return {
-      dtSy: null,
-      dtId: null
-    };
-  },
-  computed: {
-    ...mapState(["itemHao", "itemissue"]),
-    // 题干属性
-    itemTg() {
-      return this.itemissue[this.itemHao - 1].topic_name;
-    }
-  },
-  created() {
-    // 获取数据
-    this.$store.dispatch("getData");
-  },
-  methods: {
+  // data() {
+  //   return {
+  //     dtSy: null,
+  //     dtId: null
+  //   };
+  // },
+  setup() {
+    // vuex对象
+    let store = useStore();
+    // 路由对象
+    let router = useRouter();
+
+    // 调用getData方法
+    store.dispatch("getData");
+
+    //#region 获取itemHao属性
+    let itemHao = computed(() => {
+      return store.state.itemHao;
+    });
+    //#endregion
+
+    //#region 获取itemissue属性
+    let itemissue = computed(() => {
+      return store.state.itemissue;
+    });
+    // console.log(itemissue);
+    let itemTg = computed(() => {
+      return itemissue.value[itemHao.value - 1].topic_name;
+    });
+    //#endregion
+
+    //#region
+    let dtSy = ref(null);
+    let dtId = ref(null);
     // 添加答题样式
-    addYs(index, id) {
-      this.dtSy = index;
-      this.dtId = id;
-    },
+    function addYs(index, id) {
+      dtSy.value = index;
+      dtId.value = id;
+    }
     // 下一题
-    itemNext() {
-      if (this.dtSy != null) {
-        this.dtSy = null;
-        this.$store.dispatch("addTijiao", this.dtId);
-      } else {
-        alert("请作答习题!!!");
-      }
-    },
-    // 提交
-    itemSub() {
-      if (this.dtSy != null) {
-        this.dtSy = null;
-        this.$store.dispatch("addTijiao", this.dtId);
-        this.$router.push("/score");
+    function itemNext() {
+      if (dtSy.value != null) {
+        dtSy.value = null;
+        store.dispatch("addTijiao", dtId.value);
       } else {
         alert("请作答习题!!!");
       }
     }
+    // 提交
+    function itemSub() {
+      if (dtSy.value != null) {
+        dtSy.value = null;
+        store.dispatch("addTijiao", dtId.value);
+        router.push("/score");
+      } else {
+        alert("请作答习题!!!");
+      }
+    }
+    //#endregion
+
+    return {
+      itemHao,
+      itemissue,
+      itemTg,
+      addYs,
+      itemNext,
+      itemSub,
+      dtSy
+    };
   }
+  // computed: {
+  //   // ...mapState(["itemHao", "itemissue"]),
+  //   // 题干属性
+  //   // itemTg() {
+  //   //   return this.itemissue[this.itemHao - 1].topic_name;
+  //   // }
+  // },
+  // created() {
+  //   // 获取数据
+  //   this.$store.dispatch("getData");
+  // },
+  // methods: {
+  // 添加答题样式
+  // addYs(index, id) {
+  //   this.dtSy = index;
+  //   this.dtId = id;
+  // },
+  // 下一题
+  // itemNext() {
+  //   if (this.dtSy != null) {
+  //     this.dtSy = null;
+  //     this.$store.dispatch("addTijiao", this.dtId);
+  //   } else {
+  //     alert("请作答习题!!!");
+  //   }
+  // },
+  // 提交
+  // itemSub() {
+  //   if (this.dtSy != null) {
+  //     this.dtSy = null;
+  //     this.$store.dispatch("addTijiao", this.dtId);
+  //     this.$router.push("/score");
+  //   } else {
+  //     alert("请作答习题!!!");
+  //   }
+  // }
+  // }
 };
 </script>
 
