@@ -49,6 +49,7 @@ export default {
     let store = useStore();
     // router对象
     let router = useRouter();
+    // console.log(useRouter());
     //#region 渲染题号
     let tiHao = computed(() => {
       return store.state.tiHao;
@@ -93,8 +94,11 @@ export default {
         t_index.value = null;
         store.dispatch("addId", t_id.value);
         // 跳转
+        // useRouter().push("/score")
         // let router = useRouter();
+        // console.log(useRouter());
         router.push("/score");
+
       } else {
         alert("该题还未作答,请答题!!!");
       }
