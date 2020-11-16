@@ -146,6 +146,10 @@ import {
   TaobaoCircleOutlined,
   WeiboCircleOutlined,
 } from "@ant-design/icons-vue";
+// 引入接口
+import { user } from "@/api";
+// 引入http方法
+import { httpPost } from "@/utils/http";
 // 导入全局提示
 import { message } from "ant-design-vue";
 export default {
@@ -175,13 +179,15 @@ export default {
         .then(() => {
           // console.log("values", this.form);
           // console.log(this);
+          // 获取接口路径
+          const url = user.UserLogin;
           // 收集参数
           let params = {
             username: this.form.username,
             password: this.form.password,
           };
           // 发送axios请求
-          this.$axios
+          /* this.$axios
             .post("/login", params)
             .then((response) => {
               let res = response.data;
@@ -199,6 +205,25 @@ export default {
             })
             .catch((error) => {
               console.log(error);
+            }); */
+          // 3.发送请求
+          httpPost(url, params)
+            .then((res) => {
+              // 如果返回200 则登录成功
+              if (res.meta.status == 200) {
+                message.success(res.meta.msg);
+                window.sessionStorage.setItem("token", res.data.token);
+                // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
+                return this.$router.push("/home");
+              }
+
+              // 如果返回400 则弹出登录失败信息
+              if (res.meta.status == 400) {
+                return message.error(res.meta.msg);
+              }
+            })
+            .catch((err) => {
+              console.log(err.message);
             });
         })
         // 校验失败
