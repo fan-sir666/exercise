@@ -27,6 +27,34 @@ const getURL = type => {
     return serverURL;
 };
 
+
+/**
+ * @method httpGET
+ * 
+ * import { httpGet } from '@/utils/http';
+ *
+ * httpGet('', payload).then().catch();
+ * 
+ * @param {*} url [请求地址]
+ * @param {*} payload [请求参数]
+ * @param {*} type [设置baseURL]
+ */
+export const httpGet = async(url, payload, type = "API1") => {
+    try {
+        // 获取基本地址
+        serverURL = getURL(type);
+        // 在axios上挂载基本地址
+        featch.defaults.baseURL = serverURL;
+        // 发起get请求
+        const response = await featch.get(`${url}`, { params: payload });
+        // 常量接收 get 请求发过来的数据 并将结果return
+        const result = response.data;
+        return result;
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
 /**
  * @method httpPost
  *
