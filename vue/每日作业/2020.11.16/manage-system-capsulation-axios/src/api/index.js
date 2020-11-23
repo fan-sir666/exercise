@@ -3,7 +3,8 @@
 // 用户的接口
 export const user = {
     UserLogin: "login",
-    GetUsers: "users" // 获取所有用户
+    GetUsers: "users", // 获取所有用户
+    AddUser:"users"
 }
 
 // 关于权限的接口

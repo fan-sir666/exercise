@@ -51,6 +51,8 @@ instance.interceptors.response.use(
                 // 服务器状态码不是2开头的情况
                 //  这里可以跟你们的后台开发人员协商好统一的错误状态码
                 // 然后根据返回的状态码进行一些操作，例如登录过期提示，错误提示等等
+            case 201:
+                return Promise.resolve(response);
             case 400:
                 return Promise.resolve(response);
         }
