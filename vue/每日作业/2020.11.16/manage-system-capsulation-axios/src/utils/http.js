@@ -79,3 +79,62 @@ export const httpPost = async(url, payload, type = "API1") => {
         throw new Error(err);
     }
 };
+
+/**
+ * @method httpDelete
+ * 
+ * 使用
+ * import {httpDelete} from '@/utils/http'
+ * 
+ * httpDelete(url,payload).then().catch()
+ * 
+ * @param {*} url [请求地址]
+ * @param {*} payload [请求参数]
+ * @param {*} type [设置baseURL]
+ */
+export const httpDelete = async(url, payload, type = "API1") => {
+    try {
+        // 设置基本地址
+        serverURL = getURL(type);
+        // 在axios上挂载基本地址
+        featch.defaults.baseURL = serverURL;
+        // 发起delete请求
+        const response = await featch.delete(`${url}`, {
+            data: payload
+        });
+        // 接收后台返回的数据
+        const result = response.data;
+        return result;
+    } catch (err) {
+        throw new Error(err);
+    }
+}
+
+/**
+ * @method httpPut
+ *
+ * 使用
+ * import { httpPut } from '@/utils/http'
+ *
+ * httpPut('', payload).then().catch()
+ *
+ *
+ * @param {*} url [ 请求地址 ]
+ * @param {*} payload [ 请求参数 ]
+ * @param {*} type [ 设置 baseURL ]
+ */
+export const httpPut = async(url, payload, type = "API1") => {
+    try {
+        // 设置基本路径
+        serverURL = getURL(type);
+        // 在axios上挂载基本地址
+        featch.defaults.baseURL = serverURL;
+        // 发起put请求
+        const response = await featch.put(`${url}`, payload);
+        // 接收后台返回的参数
+        const result = response.data;
+        return result;
+    } catch (err) {
+        throw new Error(err);
+    }
+};

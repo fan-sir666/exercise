@@ -1,21 +1,15 @@
 <template>
-  <div id="app">
-    <a-config-provider :locale="zh_CN">
-      <router-view />
-    </a-config-provider>
-  </div>
+  <a-config-provider :locale="locale">
+    <router-view />
+  </a-config-provider>
 </template>
-<script>
-// 解决不能显示中文的问题
-import zh_CN from "ant-design-vue/lib/locale-provider/zh_CN";
-import moment from "moment";
-import "moment/locale/zh-cn";
 
-moment.locale("zh-cn");
+<script>
+import zhCN from "ant-design-vue/es/locale/zh_CN";
 export default {
   data() {
     return {
-      zh_CN,
+      locale: zhCN,
     };
   },
 };

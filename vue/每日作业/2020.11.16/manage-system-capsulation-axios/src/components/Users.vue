@@ -24,12 +24,12 @@
               添加按钮
             </a-button>
           </a-form-item>
-          <!-- 弹出框 -->
+          <!-- 添加弹出框 -->
           <a-modal
             title="添加用户"
             cancelText="取消"
             okText="确定"
-            v-model:visible="visible"
+            v-model:visible="addVisible"
             :confirm-loading="confirmLoading"
             @Ok="addUser"
             @cancel="cancelAddUser"
@@ -119,14 +119,17 @@
         <a-switch :checked="text.mg_state" />
       </template>
       <!-- 操作项 -->
-      <template #operation>
+      <template #operation="{ record }">
         <!-- 编辑 -->
-        <a-button type="primary">
+        <a-button type="primary" @click="readUser(record.id)">
           <EditOutlined />
         </a-button>
         <!-- 删除 -->
-        <a-button type="danger" style="margin: 0 10px">
-          <DeleteOutlined
+        <a-button
+          type="danger"
+          style="margin: 0 10px"
+          @click="delUser(record.id)"
+          ><DeleteOutlined
         /></a-button>
         <!-- 权限 -->
         <a-button type="default" style="background-color: #e6a23c; color: #fff">
@@ -150,6 +153,67 @@
       @change="nextPage"
       show-quick-jumper
     />
+    <!-- 编辑用户弹出框 -->
+    <a-modal
+      title="修改用户"
+      cancelText="取消"
+      okText="确定"
+      v-model:visible="editVisible"
+      :confirm-loading="confirmLoading"
+      @Ok="editUser"
+    >
+      <a-form ref="ruleEditForm" :model="editRorm" :rules="editUsersRules">
+        <a-row>
+          <a-col :span="24">
+            <!-- 用户名 -->
+            <a-form-item
+              disabled
+              label="用户名"
+              name="username"
+              :labelCol="{ span: 4 }"
+              :wrapperCol="{ span: 20 }"
+            >
+              <a-input
+                type="text"
+                v-model:value="editRorm.username"
+                autocomplete="off"
+              />
+            </a-form-item>
+            <!-- 邮箱 -->
+            <a-form-item
+              required
+              has-feedback
+              label="邮箱"
+              name="email"
+              :labelCol="{ span: 4 }"
+              :wrapperCol="{ span: 20 }"
+            >
+              <a-input
+                type="text"
+                v-model:value="editRorm.email"
+                autocomplete="off"
+              />
+            </a-form-item>
+
+            <!-- 手机号 -->
+            <a-form-item
+              required
+              has-feedback
+              label="手机号"
+              name="mobile"
+              :labelCol="{ span: 4 }"
+              :wrapperCol="{ span: 20 }"
+            >
+              <a-input
+                type="text"
+                v-model:value="editRorm.mobile"
+                autocomplete="off"
+              />
+            </a-form-item>
+          </a-col>
+        </a-row>
+      </a-form>
+    </a-modal>
   </a-layout>
 </template>
 
@@ -158,13 +222,16 @@ import {
   EditOutlined,
   DeleteOutlined,
   SettingOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons-vue";
 // 引入请求方法 httpGet
-import { httpGet, httpPost } from "@/utils/http";
+import { httpGet, httpPost, httpDelete, httpPut } from "@/utils/http";
 // 引入请求路径
 import { user } from "@/api";
 // 引入全局提示框
-import { message } from "ant-design-vue";
+import { message, Modal } from "ant-design-vue";
+// 动态模态框的依赖
+import { createVNode } from "vue";
 export default {
   components: {
     EditOutlined,
@@ -198,7 +265,7 @@ export default {
     };
     return {
       // 添加用户弹出框
-      visible: false,
+      addVisible: false,
       // 确定按钮无加载效果
       confirmLoading: false,
 
@@ -246,6 +313,14 @@ export default {
         email: [{ validator: validateEmail, trigger: "change" }],
         mobile: [{ validator: validateMobile, trigger: "change" }],
       },
+
+      // 编辑
+      editVisible: false,
+      editRorm: {},
+      editUsersRules: {
+        email: [{ validator: validateEmail, trigger: "change" }],
+        mobile: [{ validator: validateMobile, trigger: "change" }],
+      },
     };
   },
   created() {
@@ -255,7 +330,7 @@ export default {
   methods: {
     // 显示模态框
     addUserModal() {
-      this.visible = true;
+      this.addVisible = true;
     },
     // 获取用户数据
     getUsers() {
@@ -317,7 +392,7 @@ export default {
 
               if (meta.status == 201) {
                 // 让模态框消失
-                this.visible = false;
+                this.addVisible = false;
                 // 清空表单中的输入框
                 this.$refs.ruleAddForm.resetFields();
                 // 消息框提示添加成功
@@ -337,6 +412,89 @@ export default {
     // 取消添加用户
     cancelAddUser() {
       this.$refs.ruleAddForm.resetFields();
+    },
+
+    // 删除用户
+    delUser(id) {
+      let _this = this;
+      // 动态加载一个模态框
+      Modal.confirm({
+        title: "提示:",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: "此操作将永久删除该用户, 是否继续?",
+        okText: "确认",
+        cancelText: "取消",
+        // 点击确定
+        onOk() {
+          httpDelete(user.delUser + `/${id}`)
+            .then((response) => {
+              // console.log(response);
+              let { meta } = response;
+              if (meta.status == 200) {
+                message.success(meta.msg);
+                // 刷新页面
+                _this.getUsers();
+              } else if (meta.status == 400) {
+                message.success(meta.msg);
+                // 刷新页面
+                _this.getUsers();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        // 点击取消
+        onCancel() {
+          message.warning("删除操作已取消!!!");
+        },
+      });
+    },
+
+    // 编辑回显数据
+    readUser(id) {
+      // 显示模态框
+      this.editVisible = true;
+      // 发起get请求
+      httpGet(user.readUser + `/${id}`)
+        .then((response) => {
+          // console.log(response);
+          let { data, meta } = response;
+          if (meta.status == 200) {
+            // 将后台数据存到editRorm模型数据中
+            this.editRorm = data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 更新用户
+    editUser() {
+      this.$refs.ruleEditForm
+        .validate()
+        .then(() => {
+          console.log('values', this.editRorm);
+          httpPut(user.editUser + `/${this.editRorm.id}`, this.editRorm)
+            .then((response) => {
+              // console.log(response);
+              let {meta} = response;
+              if(meta.status == 200){
+                // 全局提示成功
+                message.success(meta.msg);
+                // 关闭模态框
+                this.editVisible = false;
+                // 更新页面
+                this.getUsers();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     },
   },
 };
