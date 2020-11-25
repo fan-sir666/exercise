@@ -116,7 +116,11 @@
     >
       <!-- 状态开关 -->
       <template #mg_state="{ text }">
-        <a-switch :checked="text.mg_state" />
+        <a-switch
+          v-model:checked="text.mg_state"
+          :id="text.id"
+          @change="alterState"
+        />
       </template>
       <!-- 操作项 -->
       <template #operation="{ record }">
@@ -132,7 +136,11 @@
           ><DeleteOutlined
         /></a-button>
         <!-- 权限 -->
-        <a-button type="default" style="background-color: #e6a23c; color: #fff">
+        <a-button
+          type="default"
+          style="background-color: #e6a23c; color: #fff"
+          @click="roleAllot(record)"
+        >
           <SettingOutlined
         /></a-button>
       </template>
@@ -161,6 +169,7 @@
       v-model:visible="editVisible"
       :confirm-loading="confirmLoading"
       @Ok="editUser"
+      @cancel="cancelEditUser"
     >
       <a-form ref="ruleEditForm" :model="editRorm" :rules="editUsersRules">
         <a-row>
@@ -214,6 +223,33 @@
         </a-row>
       </a-form>
     </a-modal>
+    <!-- 分配角色弹出框 -->
+    <a-modal
+      title="分配角色"
+      v-model:visible="roleVisible"
+      :confirm-loading="confirmLoading"
+      @ok="allotRole"
+      @cancel="cancelRoleUser"
+    >
+      <p>当前的用户: {{ roleInfo.username }}</p>
+      <p>当前的角色: {{ roleInfo.role_name }}</p>
+      <p>
+        分配新角色:
+        <a-select
+          style="width: 120px"
+          placeholder="请选择"
+          v-model:value="roleSelected"
+        >
+          <a-select-option
+            v-for="item in selectList"
+            :key="item.id"
+            :value="item.id"
+          >
+            {{ item.roleName }}
+          </a-select-option>
+        </a-select>
+      </p>
+    </a-modal>
   </a-layout>
 </template>
 
@@ -227,7 +263,7 @@ import {
 // 引入请求方法 httpGet
 import { httpGet, httpPost, httpDelete, httpPut } from "@/utils/http";
 // 引入请求路径
-import { user } from "@/api";
+import { user, roles } from "@/api";
 // 引入全局提示框
 import { message, Modal } from "ant-design-vue";
 // 动态模态框的依赖
@@ -321,6 +357,15 @@ export default {
         email: [{ validator: validateEmail, trigger: "change" }],
         mobile: [{ validator: validateMobile, trigger: "change" }],
       },
+
+      // 分配角色
+      roleVisible: false,
+      // 显示项
+      roleInfo: {},
+      // 下拉菜单
+      selectList: [],
+      // 下拉选这的值
+      roleSelected: null,
     };
   },
   created() {
@@ -474,12 +519,12 @@ export default {
       this.$refs.ruleEditForm
         .validate()
         .then(() => {
-          console.log('values', this.editRorm);
+          console.log("values", this.editRorm);
           httpPut(user.editUser + `/${this.editRorm.id}`, this.editRorm)
             .then((response) => {
               // console.log(response);
-              let {meta} = response;
-              if(meta.status == 200){
+              let { meta } = response;
+              if (meta.status == 200) {
                 // 全局提示成功
                 message.success(meta.msg);
                 // 关闭模态框
@@ -494,6 +539,82 @@ export default {
         })
         .catch((error) => {
           console.log("error", error);
+        });
+    },
+    // 取消更新用户
+    cancelEditUser() {
+      message.warning("更新用户已取消!!!");
+    },
+
+    // 分配角色
+    roleAllot(userRole) {
+      // 显示弹出框
+      this.roleVisible = true;
+      // console.log(userRole);
+      this.roleInfo = userRole;
+      // 发起get请求获取下拉option的值
+      httpGet(roles.getRoles)
+        .then((response) => {
+          // console.log(response);
+          let { meta, data } = response;
+          if (meta.status == 200) {
+            this.selectList = data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 修改角色
+    allotRole() {
+      // console.log(this.roleInfo.id);
+      // console.log(this.roleSelected);
+      // 判断用户选择项为null值
+      if (this.roleSelected == null) {
+        message.error("请您选择一个角色！！");
+        return;
+      }
+      // 发起角色更改请求
+      httpPut(`users/${this.roleInfo.id}/role`, { rid: this.roleSelected })
+        .then((response) => {
+          // console.log(response);
+          let { meta } = response;
+          if (meta.status == 400) {
+            message.error(meta.msg);
+          }
+          if (meta.status == 200) {
+            // 提示用户成功
+            message.success(meta.msg);
+            // 重新渲染表格
+            this.getUsers();
+            // 重置选项
+            this.roleSelected = null;
+            // 模态框消失
+            this.roleVisible = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 取消角色分配
+    cancelRoleUser() {
+      // 重置选项
+      this.roleSelected = null;
+      message.warning("用户已取消更改分配角色！！！");
+    },
+    // 更改用户状态
+    alterState(checked, event) {
+      httpPut(`users/${event.target.id}/state/${checked}`)
+        .then((response) => {
+          // console.log(response);
+          let { meta } = response;
+          if (meta.status == 200) {
+            message.success(meta.msg);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
