@@ -407,6 +407,7 @@ export default {
     },
     // 分页处理一页显示多少条数据
     onShowSizeChange(current, pageSize) {
+      this.current = current;
       this.getUsers(current, pageSize);
     },
     // 点击下一页

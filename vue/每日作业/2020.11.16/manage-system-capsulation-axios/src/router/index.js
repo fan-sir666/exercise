@@ -16,11 +16,29 @@ const routes = [
         children: [
             { path: "/home", redirect: "/welcome" },
             // welcome组件
-            { path: "/welcome", component: () =>
-                    import ("@/components/Welcome") },
+            {
+                path: "/welcome",
+                component: () =>
+                    import ("@/components/Welcome")
+            },
             // Users组件
-            { path: "/users", component: () =>
-                    import ("@/components/Users") }
+            {
+                path: "/users",
+                component: () =>
+                    import ("@/components/Users")
+            },
+            // Rights组件
+            {
+                path: "/rights",
+                component: () =>
+                    import ("@/components/Rights")
+            },
+            // Roles组件
+            {
+                path: "/roles",
+                component: () =>
+                    import ("@/components/Roles")
+            }
         ]
     }
 ];
