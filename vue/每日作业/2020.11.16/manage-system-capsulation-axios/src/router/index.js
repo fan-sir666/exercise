@@ -38,6 +38,12 @@ const routes = [
                 path: "/roles",
                 component: () =>
                     import ("@/components/Roles")
+            },
+            // Reports组件
+            {
+                path: "/reports",
+                component: () =>
+                    import ("@/components/Reports")
             }
         ]
     }
