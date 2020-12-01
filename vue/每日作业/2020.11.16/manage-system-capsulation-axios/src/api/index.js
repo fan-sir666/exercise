@@ -13,11 +13,17 @@ export const user = {
 // 关于权限的接口
 export const rights = {
     AsideMenus: "menus", // 获取左侧菜单权限
-    GetRights: "rights/list"
+    GetRights: "rights/list", // 获取权限列表形式
+    getTreeRights: "rights/tree" // 获取权限树形形式
 };
 
 // 关于角色的接口
 export const roles = {
     getRoles: "roles", //获取所有角色
     addRoles: "roles", //添加角色
+}
+
+// 关于订单的接口
+export const orders = {
+    getOrders: "orders" // 订单数据列表
 }

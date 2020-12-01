@@ -76,7 +76,7 @@
         </template>
         <!-- 下拉项 -->
         <template #expandedRowRender="{ record }">
-          <!-- {{record}} -->
+          <!-- {{ record }} -->
           <!-- 一级 -->
           <a-row
             v-for="(item1, index1) in record.children"
@@ -85,7 +85,13 @@
           >
             <a-col :span="5">
               <span>
-                <a-tag closable color="blue"> {{ item1.authName }} </a-tag>
+                <a-tag
+                  closable
+                  @close="delTag($event, record.id, item1.id)"
+                  color="blue"
+                >
+                  {{ item1.authName }}
+                </a-tag>
                 <CaretRightOutlined />
               </span>
             </a-col>
@@ -101,7 +107,13 @@
               >
                 <a-col :span="6">
                   <span>
-                    <a-tag closable color="green"> {{ item2.authName }} </a-tag>
+                    <a-tag
+                      closable
+                      @close="delTag($event, record.id, item2.id)"
+                      color="green"
+                    >
+                      {{ item2.authName }}
+                    </a-tag>
                     <CaretRightOutlined />
                   </span>
                 </a-col>
@@ -112,6 +124,7 @@
                       v-for="item3 in item2.children"
                       :key="item3.id"
                       closable
+                      @close="delTag($event, record.id, item3.id)"
                     >
                       {{ item3.authName }}
                     </a-tag>
@@ -122,7 +135,7 @@
           </a-row>
         </template>
         <!-- 操作 -->
-        <template #operation>
+        <template #operation="{ record }">
           <!-- 编辑 -->
           <a-button type="primary"> <EditOutlined />编辑 </a-button>
           <!-- 删除 -->
@@ -133,20 +146,39 @@
           <a-button
             type="default"
             style="background-color: #e6a23c; color: #fff"
+            @click="privileges(record)"
           >
             <SettingOutlined />分配权限</a-button
           >
         </template>
       </a-table>
     </a-card>
+    <!-- 分配权限模态框 -->
+    <a-modal
+      title="分配权限"
+      v-model:visible="allotVisible"
+      :confirm-loading="confirmLoading"
+      @cancel="clearRrivileges"
+      @ok="addRrivileges"
+    >
+      <a-tree
+        checkable
+        :tree-data="treeData"
+        :replaceFields="{ children: 'children', title: 'authName', key: 'id' }"
+        v-model:checkedKeys="treeCheckedKeys"
+        :defaultExpandAll="defaultExpandAll"
+        v-if="defaultExpandAll"
+      >
+      </a-tree>
+    </a-modal>
   </a-layout>
 </template>
 
 <script>
 // 导入接口
-import { roles } from "@/api";
+import { roles, rights } from "@/api";
 // 导入请求方法
-import { httpGet, httpPost } from "@/utils/http";
+import { httpGet, httpPost, httpDelete } from "@/utils/http";
 // 引入菜单小图标
 import {
   EditOutlined,
@@ -156,9 +188,12 @@ import {
   // 自定义下拉的图标
   DownOutlined,
   RightOutlined,
+  // 动态模态框
+  ExclamationCircleOutlined,
 } from "@ant-design/icons-vue";
 // 引入全局提示框
-import { message } from "ant-design-vue";
+import { message, Modal } from "ant-design-vue";
+import { createVNode } from "vue";
 export default {
   components: {
     EditOutlined,
@@ -207,6 +242,13 @@ export default {
       roleRules: {
         roleName: [{ validator: validateRoleName, trigger: "change" }],
       },
+      // 分配权限
+      allotVisible: false,
+      // 树形的数据源
+      treeData: [],
+      // 展开节点id数组
+      treeCheckedKeys: [],
+      defaultExpandAll:false
     };
   },
   created() {
@@ -267,7 +309,7 @@ export default {
           //发起httpPost请求
           httpPost(roles.addRoles, params)
             .then((response) => {
-                // console.log(response);
+              // console.log(response);
               let { meta } = response;
               if (meta.status == 201) {
                 // 让模态框消失
@@ -294,6 +336,86 @@ export default {
       this.$refs.roleAddForm.resetFields();
       // 提示
       message.warning("取消添加角色!!!");
+    },
+    // 删除表格标签
+    delTag(e, roleId, rightId) {
+      // console.log(111111);
+      const _this = this;
+      // 阻止点击x号的默认行为
+      e.preventDefault();
+      // 动态模态框
+      Modal.confirm({
+        title: "提示",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: "此操作将永久删除该文件, 是否继续?",
+        // 确定按钮
+        onOk() {
+          // console.log(1111111);
+          httpDelete(`roles/${roleId}/rights/${rightId}`)
+            .then((response) => {
+              // console.log(response);
+              let { meta } = response;
+              if (meta.status == 200) {
+                // 提示删除成功
+                message.success(meta.msg);
+                // 重载页面
+                _this.getRoles();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        // 取消按钮
+        onCancel() {
+          // console.log(22222222);
+          message.warning("已取消删除操作!!!");
+        },
+      });
+    },
+    // 分配权限
+    privileges(record) {
+      // console.log(111111);
+      // 显示模态框
+      this.allotVisible = true;
+      httpGet(rights.getTreeRights)
+        .then((response) => {
+          // console.log(response);
+          let { meta, data } = response;
+          if (meta.status == 200) {
+            // 先给数据源赋值
+            this.treeData = data;
+            // 再显示模态框
+            this.defaultExpandAll=true;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // console.log(record);
+      // 查找最里层id
+      this.findJurisdiction(record, this.treeCheckedKeys);
+      // console.log(this.treeCheckedKeys);
+    },
+    // 通过递归的方式 将最里层的id存到treeCheckedKeys
+    findJurisdiction(node, arr) {
+      // 如果没有children字段
+      if (!node.children) {
+        // 结束递归 将id存入
+        return arr.push(node.id);
+      }
+      // 递归自己调用自己
+      node.children.forEach((ele) => this.findJurisdiction(ele, arr));
+    },
+    // 清空treeCheckedKeys
+    clearRrivileges() {
+      this.treeCheckedKeys = [];
+    },
+    // 添加权限
+    addRrivileges() {
+      console.log(111111);
+      // 关闭模态框
+      this.allotVisible = false;
     },
   },
 };

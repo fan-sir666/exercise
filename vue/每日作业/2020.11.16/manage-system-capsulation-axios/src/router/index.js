@@ -44,6 +44,12 @@ const routes = [
                 path: "/reports",
                 component: () =>
                     import ("@/components/Reports")
+            },
+             // Orders组件
+             {
+                path: "/orders",
+                component: () =>
+                    import ("@/components/Orders")
             }
         ]
     }
