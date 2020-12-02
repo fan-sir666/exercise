@@ -10,7 +10,7 @@
     </a-breadcrumb>
     <a-card>
       <!-- 搜索框 -->
-      <a-row style="margin-bottom:20px">
+      <a-row style="margin-bottom: 20px">
         <a-col :span="8">
           <a-input-search size="large" placeholder="请输入内容" enter-button />
         </a-col>
@@ -34,13 +34,18 @@
         </template>
         <!-- 操作按钮 -->
         <template #operation>
-          <!--  -->
-          <a-button type="primary" size="large" style="margin-right: 10px">
+          <!-- 修改地址 -->
+          <a-button
+            type="primary"
+            size="large"
+            style="margin-right: 10px"
+            @click="editAddress"
+          >
             <template #icon>
               <EditOutlined />
             </template>
           </a-button>
-          <!-- 地址 -->
+          <!-- 定位 -->
           <a-button type="danger" size="large">
             <template #icon>
               <EnvironmentOutlined />
@@ -65,6 +70,30 @@
         show-quick-jumper
       />
     </a-card>
+    <!-- 修改地址模态框 -->
+    <a-modal
+      title="修改地址"
+      okText="确定"
+      cancelText="取消"
+      v-model:visible="address.visible"
+      :confirm-loading="address.confirmLoading"
+      @ok="updateAddress"
+      :afterClose="cancelUpdateAddress"
+    >
+      <a-form :model="address.form" :rules="address.rules" ref="addressForm">
+        <a-form-item label="省市区/县" name="province">
+          <a-cascader
+            v-model:value="address.form.province"
+            :options="address.options"
+            expand-trigger="hover"
+            placeholder="请选择"
+          />
+        </a-form-item>
+        <a-form-item label="详细地址" name="detail">
+          <a-input v-model:value="address.form.detail" />
+        </a-form-item>
+      </a-form>
+    </a-modal>
   </a-layout>
 </template>
 
@@ -75,6 +104,9 @@ import { orders } from "@/api";
 import { httpGet } from "@/utils/http.js";
 // 操作图标
 import { EnvironmentOutlined, EditOutlined } from "@ant-design/icons-vue";
+// 地区联动数据
+import CityData from "@/api/citydata";
+import { message } from "ant-design-vue";
 export default {
   components: {
     EnvironmentOutlined,
@@ -127,6 +159,28 @@ export default {
         // 分页下拉选项
         pageSizeOptions: ["1", "2", "5", "10"],
       },
+      address: {
+        visible: false,
+        confirmLoading: false,
+        form: {
+          province: [],
+          detail: "",
+        },
+        rules: {
+          province: [
+            {
+              type: "array",
+              required: true,
+              message: "请选择省市地址",
+              trigger: "blur",
+            },
+          ],
+          detail: [
+            { required: true, message: "请填写详细地址", trigger: "blur" },
+          ],
+        },
+        options: [],
+      },
     };
   },
   created() {
@@ -163,6 +217,29 @@ export default {
     // 点击下一页
     nextPage(current, pageSize) {
       this.getOrdersData(current, pageSize);
+    },
+    // 修改地址
+    editAddress() {
+      // 显示模态框
+      this.address.visible = true;
+      // 三级联动赋值
+      this.address.options = CityData;
+    },
+    // 更新地址
+    updateAddress() {
+      this.$refs.addressForm
+        .validate()
+        .then(() => {
+          message.success("更新成功!!!");
+          this.address.visible = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // 取消更新地址
+    cancelUpdateAddress() {
+      this.$refs.addressForm.resetFields();
     },
   },
 };
