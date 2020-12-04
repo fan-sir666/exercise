@@ -27,3 +27,9 @@ export const roles = {
 export const orders = {
     getOrders: "orders" // 订单数据列表
 }
+
+//关于商品管理的接口
+export const goods = {
+    getGoods: "goods", // 获取商品列表
+    getCategories:"categories" // 获取商品分类列表
+}

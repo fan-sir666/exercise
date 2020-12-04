@@ -45,11 +45,23 @@ const routes = [
                 component: () =>
                     import ("@/components/Reports")
             },
-             // Orders组件
-             {
+            // Orders组件
+            {
                 path: "/orders",
                 component: () =>
                     import ("@/components/Orders")
+            },
+            // Goods组件
+            {
+                path: "/goods",
+                component: () =>
+                    import ("@/components/Goods")
+            },
+            // Categories组件
+            {
+                path: "/categories",
+                component: () =>
+                    import ("@/components/Categories")
             }
         ]
     }
