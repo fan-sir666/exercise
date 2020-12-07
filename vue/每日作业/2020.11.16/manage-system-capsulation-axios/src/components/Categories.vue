@@ -17,12 +17,46 @@
       </a-row>
       <!-- 表格 -->
       <a-table
-        :row-key="(record) => record.goods_id"
+        :row-key="(record) => record.cat_id"
         :columns="table.columns"
         :data-source="table.data"
         bordered
+        :expandIconColumnIndex="1"
         :pagination="false"
       >
+        <!-- 序号 -->
+        <template #index="{ record, index }">
+          <!-- 只有第一层添加序号 -->
+          <span v-if="record.cat_level == 0">{{ index + 1 }}</span>
+        </template>
+        <!-- 是否有效 -->
+        <template #isDeleted="{ record }">
+          <CheckCircleTwoTone
+            v-if="record.cat_deleted == false"
+            twoToneColor="#52c41a"
+          />
+          <CloseCircleTwoTone
+            v-if="record.cat_deleted == true"
+            twoToneColor="#c41a16"
+          />
+        </template>
+        <!-- 排序 -->
+        <template #level="{ record }">
+          <a-tag color="orange" v-if="record.cat_level == 2"> 三级 </a-tag>
+          <a-tag color="green" v-if="record.cat_level == 1"> 二级 </a-tag>
+          <a-tag color="blue" v-if="record.cat_level == 0"> 一级</a-tag>
+        </template>
+        <!-- 操作 -->
+        <template #operation>
+          <!-- 编辑 -->
+          <a-button size="small" type="primary">
+            <EditOutlined />编辑
+          </a-button>
+          <!-- 删除 -->
+          <a-button size="small" type="danger" style="margin: 0 10px">
+            <DeleteOutlined />删除
+          </a-button>
+        </template>
       </a-table>
       <!-- 分页器 -->
       <a-pagination
@@ -30,7 +64,10 @@
         v-model:current="pagination.current"
         v-model:pageSize="pagination.pageSize"
         :total="pagination.total"
-        :show-total="(total) => `共有${pagination.total} 条`"
+        :show-total="
+          (total) => `共有
+    ${pagination.total} 条`
+        "
         show-size-changer
         @showSizeChange="onShowSizeChange"
         :page-size-options="pagination.pageSizeOptions"
@@ -42,12 +79,23 @@
 </template>
 
 <script>
-// import { EditOutlined, DeleteOutlined } from "@ant-design/icons-vue";
+import {
+  CheckCircleTwoTone,
+  CloseCircleTwoTone,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons-vue";
 // 引入请求方法 httpGet
 import { httpGet } from "@/utils/http";
 // 引入请求路径
 import { goods } from "@/api";
 export default {
+  components: {
+    CheckCircleTwoTone,
+    CloseCircleTwoTone,
+    DeleteOutlined,
+    EditOutlined,
+  },
   data() {
     return {
       table: {
@@ -65,22 +113,22 @@ export default {
           {
             title: "是否有效",
             key: "cat_deleted",
-            // slots: { customRender: "cat_deleted" },
+            slots: { customRender: "isDeleted" },
           },
+          { title: "排序", key: "cat_level", slots: { customRender: "level" } },
           {
-            title: "排序",
-            key: "cat_deleted",
-            // slots: { customRender: "cat_deleted" },
+            title: "操作",
+            key: "operation",
+            slots: { customRender: "operation" },
           },
         ],
         // 数据源
         data: [],
       },
       pagination: {
-        // 当前页
         current: 1,
-        total: 0,
         pageSize: 10,
+        total: 0,
         // 分页下拉选项
         pageSizeOptions: ["5", "10", "15", "20"],
       },
@@ -94,6 +142,7 @@ export default {
     // 获取用户数据
     getCategories() {
       httpGet(goods.getCategories, {
+        type: [1, 2, 3],
         pagenum: this.pagination.current,
         pagesize: this.pagination.pageSize,
       })
@@ -105,7 +154,7 @@ export default {
             this.table.data = data.result;
             // console.log(this.tableData);
             // 当前页
-            this.pagination.current = Number(data.pagenum);
+            this.pagination.current = Number(data.pagenum + 1);
             // 数据总量
             this.pagination.total = data.total;
           }
