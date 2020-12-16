@@ -20,7 +20,9 @@
         <!-- 添加按钮 -->
         <a-col :span="4">
           <a-form-item>
-            <a-button type="primary" size="large"> 添加商品 </a-button>
+            <a-button type="primary" size="large">
+              <router-link to="/goods/add">添加商品</router-link>
+            </a-button>
           </a-form-item>
         </a-col>
       </a-row>

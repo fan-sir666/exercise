@@ -147,7 +147,7 @@ export default {
         pagesize: this.pagination.pageSize,
       })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           let { meta, data } = response;
           // 如果后台返回的状态码为200,则代表请求成
           if (meta.status == 200) {

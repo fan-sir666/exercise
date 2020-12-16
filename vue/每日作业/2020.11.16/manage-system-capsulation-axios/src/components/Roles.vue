@@ -168,6 +168,7 @@
         v-model:checkedKeys="treeCheckedKeys"
         :defaultExpandAll="defaultExpandAll"
         v-if="defaultExpandAll"
+        @check="xuanZe"
       >
       </a-tree>
     </a-modal>
@@ -248,7 +249,10 @@ export default {
       treeData: [],
       // 展开节点id数组
       treeCheckedKeys: [],
-      defaultExpandAll:false
+      defaultExpandAll: false,
+      //
+      roleId: "",
+      fatherNodes: [],
     };
   },
   created() {
@@ -375,7 +379,7 @@ export default {
     },
     // 分配权限
     privileges(record) {
-      // console.log(111111);
+      this.roleId = record.id;
       // 显示模态框
       this.allotVisible = true;
       httpGet(rights.getTreeRights)
@@ -386,7 +390,7 @@ export default {
             // 先给数据源赋值
             this.treeData = data;
             // 再显示模态框
-            this.defaultExpandAll=true;
+            this.defaultExpandAll = true;
           }
         })
         .catch((err) => {
@@ -406,6 +410,7 @@ export default {
       }
       // 递归自己调用自己
       node.children.forEach((ele) => this.findJurisdiction(ele, arr));
+      this.fatherNodes.push(node.id);
     },
     // 清空treeCheckedKeys
     clearRrivileges() {
@@ -413,9 +418,29 @@ export default {
     },
     // 添加权限
     addRrivileges() {
-      console.log(111111);
-      // 关闭模态框
-      this.allotVisible = false;
+      httpPost(`roles/${this.roleId}/rights`, {
+        rids: this.treeCheckedKeys.concat(this.fatherNodes).join(","),
+      })
+        .then((response) => {
+          // console.log(response);
+          let { meta } = response;
+          if (meta.status == 200) {
+            message.success(meta.msg);
+            this.allotVisible = false;
+            this.getRoles();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // 清空
+      this.fatherNodes = [];
+      this.treeCheckedKeys = [];
+    },
+    xuanZe(checkedKeys, e) {
+      // console.log(checkedKeys);
+      // console.log(e);
+      this.fatherNodes = e.halfCheckedKeys;
     },
   },
 };

@@ -57,6 +57,18 @@ const routes = [
                 component: () =>
                     import ("@/components/Goods")
             },
+            // GoodsAdd添加商品组件
+            {
+                path: "/goods/add",
+                component: () =>
+                    import ("@/components/GoodsAdd")
+            },
+            // Params组件
+            {
+                path: "/params",
+                component: () =>
+                    import ("@/components/Params")
+            },
             // Categories组件
             {
                 path: "/categories",

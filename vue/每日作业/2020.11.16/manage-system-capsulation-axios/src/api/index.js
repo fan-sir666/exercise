@@ -31,5 +31,6 @@ export const orders = {
 //关于商品管理的接口
 export const goods = {
     getGoods: "goods", // 获取商品列表
-    getCategories:"categories" // 获取商品分类列表
+    getCategories:"categories", // 获取商品分类列表
+    AddGoods: "goods", // 添加商品
 }

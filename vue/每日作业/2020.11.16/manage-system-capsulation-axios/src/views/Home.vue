@@ -61,7 +61,7 @@
             <!-- 二级菜单 -->
             <a-menu-item v-for="ziItem in item.children" :key="ziItem.id"
               ><appstore-outlined /><span
-                ><router-link :to="ziItem.path">{{
+                ><router-link :to="'/'+ziItem.path">{{
                   ziItem.authName
                 }}</router-link></span
               ></a-menu-item
