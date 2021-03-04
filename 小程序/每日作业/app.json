@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/category/category",
     "pages/goods_list/goods_list",
+    "pages/category/category",
     "pages/goos_detail/goos_detail",
     "pages/cart/cart",
     "pages/collect/collect",
-    "pages/order/order",
+    "pages/order/order", 
     "pages/search/search",
     "pages/user/user",
     "pages/feedback/feedback",
