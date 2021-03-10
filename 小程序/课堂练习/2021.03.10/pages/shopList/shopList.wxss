@@ -1,0 +1,42 @@
+.shop-item {
+    display: flex;
+    margin: 10rpx;
+    padding: 10rpx;
+    height: 300rpx;
+    margin-bottom: 20rpx;
+    border-radius: 20rpx;
+    border: 1px solid #ccc;
+    box-shadow: 6rpx 6rpx 6rpx #ccc;
+}
+
+.thumb {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thumb>image {
+    width: 90%;
+}
+
+.info {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.info text {
+    font-size: 24rpx;
+}
+.info text:first-child {
+    font-size: 28rpx;
+    font-weight: 900;
+}
+.info text:nth-child(3) {
+  /* 出现省略号 */
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}

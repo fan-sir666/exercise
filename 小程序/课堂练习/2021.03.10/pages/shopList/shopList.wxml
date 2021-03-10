@@ -1,0 +1,20 @@
+<view wx:for="{{shopList}}" wx:key="id" class="shop-item">
+    <view class="thumb">
+        <image mode="widthFix" src="{{item.images[0]}}"></image>
+    </view>
+    <view class="info">
+        <text class="shop-title">{{item.name}}</text>
+        <!-- 使用wxs 中的方法， 处理手机号码 -->
+        <text>电话： {{tools.splitPhone(item.phone)}}</text>
+        <text>地址： {{item.address}}</text>
+        <text>营业时间： {{item.businessHours}}</text>
+    </view>
+</view>
+<wxs module="tools">
+    module.exports.splitPhone = function (tel) {
+        if (tel.length !== 11) {
+            return tel
+        }
+        return tel.substring(0, 3) + '-' + tel.substring(3, 7) + '-' + tel.substring(7, 11);
+    }
+</wxs>
