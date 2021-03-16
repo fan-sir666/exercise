@@ -1,0 +1,12 @@
+<!-- 自定义tabBar -->
+<cover-view class="tab-bar">
+  <!-- 边框 -->
+  <cover-view></cover-view>
+  <!-- tabBar项 -->
+  <cover-view>
+    <!-- 图片 -->
+    <cover-image src="/images/tabs/home.png"></cover-image>
+    <!-- 文字 -->
+    <cover-view>首页</cover-view>
+  </cover-view>
+</cover-view>

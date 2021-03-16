@@ -1,0 +1,4 @@
+<Tab>
+  <view slot="one">哈哈1</view>
+  <view slot="two">哈哈哈2</view>
+</Tab>

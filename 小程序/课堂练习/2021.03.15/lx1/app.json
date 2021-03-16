@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "subPackages": [{
+    "root": "packageA",
+    "pages": ["pages/haha/idnex", "pages/wawa/idnex"]
+  }, {
+    "root": "packageB",
+    "pages": ["pages/haha/idnex", "pages/wawa/idnex"]
+  }],
+  "preloadRule": {
+    "pages/index/index": {
+      "packages": ["packageA"],
+      "network": "all"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
