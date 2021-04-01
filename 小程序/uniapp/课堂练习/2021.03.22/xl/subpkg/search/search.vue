@@ -52,8 +52,8 @@
 				clearTimeout(this.timer);
 				// 防抖处理
 				this.timer = setTimeout(() => {
+					// 获取输入的值
 					this.kw = e.value;
-
 					// 调用请求函数
 					this.getSearchList();
 				}, 1000)
