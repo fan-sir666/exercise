@@ -28,7 +28,7 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "enableEngineNative": false, 
+    "enableEngineNative": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,

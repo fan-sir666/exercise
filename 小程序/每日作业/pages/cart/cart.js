@@ -26,25 +26,25 @@ Page({
                         wx.setStorageSync("address", result1);
                     }
                 });
-                // const scopeAddress = result.authSetting["scope.address"];
-                // if (scopeAddress === true || scopeAddress === undefined) {
-                //     wx.chooseAddress({
-                //         success: (result1) => {
-                //             console.log(result1);
-                //         }
-                //     });
-                // } else {
-                //     // 打开权限设置
-                //     wx.openSetting({
-                //         success: (result2) => {
-                //             wx.chooseAddress({
-                //                 success: (result3) => {
-                //                     console.log(result3);
-                //                 }
-                //             });
-                //         }
-                //     });
-                // }
+                const scopeAddress = result.authSetting["scope.address"];
+                if (scopeAddress === true || scopeAddress === undefined) {
+                    wx.chooseAddress({
+                        success: (result1) => {
+                            console.log(result1);
+                        }
+                    });
+                } else {
+                    // 打开权限设置
+                    wx.openSetting({
+                        success: (result2) => {
+                            wx.chooseAddress({
+                                success: (result3) => {
+                                    console.log(result3);
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     }

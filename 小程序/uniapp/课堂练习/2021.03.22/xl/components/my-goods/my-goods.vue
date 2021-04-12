@@ -79,9 +79,14 @@
 
 <style lang="scss">
 	.goods-item {
+		// 让 goods-item 项占满整个屏幕的宽度
+		width: 750rpx;
+		// 设置盒模型为 border-box
+		box-sizing: border-box;
 		display: flex;
 		padding: 10px 5px;
 		border-bottom: 1px solid #f0f0f0;
+
 
 		.goods-item-left {
 			margin-right: 5px;
