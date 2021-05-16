@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- 含有React方法 -->
+    <script src="./lib/react.development.js"></script>
+    <!-- 含有ReactDOM方法 -->
+    <script src="./lib/react-dom.development.js"></script>
+    <script>
+
+        // 创建虚拟DOM
+        // createElement  参数: ①标签  ②属性  ③ 内容 , 多出来的参数都是创建元素的内容
+        let oDiv = React.createElement('div',null,'来了老弟，哈哈');
+
+        // 渲染
+        // render      参数: ① 渲染的虚拟结点  ② 获取要放的实际DOM的元素
+        ReactDOM.render(oDiv,document.getElementById('app'),()=>{
+            alert("渲染成功!!!");
+        })
+        // render 多次渲染在同一个实际DOM元素中 取最后一次  会覆盖
+    </script>
+</body>
+</html>

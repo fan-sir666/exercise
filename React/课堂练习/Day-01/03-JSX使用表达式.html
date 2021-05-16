@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <!-- jsx转换为js -->
+    <script src="./lib/babel.min.js"></script>
+    <script type="text/babel">
+        const user = { firstName: 'Harper', lastName: 'Perez' }; 
+        function formatName(user) { return user.firstName + ' ' + user.lastName; } 
+        function Home() { return (
+        <div>
+            <p>{1+2}</p>
+            <p>-------------------</p>
+            <p>{[1,2,3,4]}</p>
+            <p>-------空数组不显示------------</p>
+            <p>{[]}</p>
+            <p>{[].toString()}</p>
+            <p>{[1,2,3,4].join('-')}</p>
+            <p>--------undefined不显示-----------</p>
+            <p>{undefined}</p>
+            <p>{undefined+''}</p>
+            <p>---------布尔值不显示----------</p>
+            <p>{true}</p>
+            <p>{true+''}</p>
+            <p>-------------------</p>
+            <p>{1==2?'等于':'不等于'}</p>
+            <p>-------------------</p>
+            <p>{formatName(user)}</p>
+        </div>
+        ) } 
+        // 渲染
+        ReactDOM.render(
+        <Home/>,document.getElementById('app'),()=>{ console.log("渲染成功!!!!"); })
+
+
+        // 结论: 在 JSX 语法中，你可以在大括号内放置任何有效的 JavaScript 表达式,但是不能出现语句
+        //       以下嵌入的内容不会被显示出来 [] true false null undefined
+        //       如果想显示上面的内容，那么就必须转换成字符串，但是对于空数组而言，即使转换成字符串，也不能显示
+    </script>
+</body>
+
+</html>

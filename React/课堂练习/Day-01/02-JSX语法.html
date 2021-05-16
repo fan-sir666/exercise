@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <!-- jsx转换为js -->
+    <script src="./lib/babel.min.js"></script>
+    <script crossorigin type="text/babel">
+
+        let oNode = <div><span>哈哈,来了老弟大萨达萨达</span></div>
+        
+        ReactDOM.render(oNode,document.getElementById('app'),()=>{
+            console.log("渲染成功!!!!");
+        })
+
+        // 组件  构造函数形式
+        // function Home() {
+        //     return (
+        //         <div className="aaa"><span>哈哈,来了老弟</span></div>
+        //     )
+        // }
+        // ReactDOM.render(<Home/>,document.getElementById('app'),()=>{
+        //     console.log("渲染成功!!!!");
+        // })
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "name": "苹果",
+      "price": 10,
+      "status": false
+    },
+    {
+      "id": 2,
+      "name": "梨子",
+      "price": 15,
+      "status": false
+    },
+    {
+      "id": 3,
+      "name": "樱桃",
+      "price": 20,
+      "status": false
+    },
+    {
+      "id": 4,
+      "name": "西瓜",
+      "price": 25,
+      "status": false
+    }
+  ]
