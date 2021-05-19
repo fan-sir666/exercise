@@ -27,15 +27,23 @@ import ReactDOM from 'react-dom';
 // 原生动画
 // import ComDhua from './components/ComDhua/index.jsx'
 
-// react-transition-group动画插件的基本使用
-import ComDhuaCjian from './components/ComDhuaCjian/index.jsx'
+// react-transition-group动画插件的基本使用  CSSTransition
+// 插件动画开始和离开
+// import ComDhuaCjian from './components/ComDhuaCjian/index1.jsx'
+// 插件的基本使用 appear  unmountOnExit 属性的作用
+// import ComDhuaCjian from './components/ComDhuaCjian/index2.jsx'
+// 插件 获取执行动画各阶段 的元素
+// import ComDhuaCjian from './components/ComDhuaCjian/index3.jsx'
+
+// SwitchTransition 切换动画
+// import ComDhuaCjian from './components/ComDhuaCjian/index4.jsx'
+
+// TransitionGroup 列表切换动画
+import ComDhuaCjian from './components/ComDhuaCjian/index5.jsx'
 //#endregion
 
 
 ReactDOM.render(
-  // <React.StrictMode>
-  //   <ComDhuaCjian></ComDhuaCjian>
-  // </React.StrictMode>,
     <ComDhuaCjian/>,
   document.getElementById('root')
 );

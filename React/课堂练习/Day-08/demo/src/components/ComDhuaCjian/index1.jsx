@@ -6,7 +6,7 @@ import React, { Fragment } from "react"
 // 2. 在使用的组件导入
 import { CSSTransition } from 'react-transition-group'
 // 4. 将书写好的样式导入
-import './index.css'
+import './index1.css'
 
 class Home extends React.Component {
     // 初始状态默认不显示
@@ -15,9 +15,15 @@ class Home extends React.Component {
     }
 
     // 改变状态
-    changeState = () => {
+    changeStateShow = () => {
         this.setState({
             flag: true
+        })
+    }
+
+    changeStateHide = () => {
+        this.setState({
+            flag: false
         })
     }
 
@@ -31,7 +37,8 @@ class Home extends React.Component {
                 <CSSTransition in={this.state.flag} classNames="box" timeout={3000}>
                     <div></div>
                 </CSSTransition>
-                <button onClick={this.changeState}>点击开始动画</button>
+                <button onClick={this.changeStateShow}>显示按钮</button>
+                <button onClick={this.changeStateHide}>隐藏按钮</button>
             </Fragment>
         )
     }
