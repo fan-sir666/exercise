@@ -1,0 +1,28 @@
+/* app 样式 */
+.app-box{
+    display: flex;
+    height: 100%;
+}
+.app-left{
+    padding: 30px 20px;
+    width: 250px;
+    height: 100%;
+    background-color: #ccc;
+    text-align: center;
+    font-size: 20px;
+}
+.ljie {
+    display: block;
+    padding: 20px 0;
+    color: #333;
+    text-decoration: none;
+}
+.ljie.active {
+    font-weight: 700;
+    color: rgb(3, 90, 3) !important;
+}
+.app-right{
+    flex: 1;
+    padding: 30px 20px;
+    height: 100%;
+}

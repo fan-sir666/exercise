@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-// 使用 styled-component 样式包
+// 使用 styled-components 样式包
 import styled from 'styled-components';
 
 // 创建样式函数组件

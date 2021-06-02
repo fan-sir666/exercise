@@ -1,0 +1,50 @@
+      [
+            {
+                  "id": 1,
+                  "pName": "牛奶",
+                  "src": "/uploads/01.jpg",
+                  "price": 10,
+                  "count": 3,
+                  "checked": false
+            },
+            {
+                  "id": 2,
+                  "pName": "三只松鼠",
+                  "src": "/uploads/02.jpg",
+                  "price": 30,
+                  "count": 1,
+                  "checked": true
+            },
+            {
+                  "id": 3,
+                  "pName": "蓝牙播放器",
+                  "src": "/uploads/03.jpg",
+                  "price": 100,
+                  "count": 1,
+                  "checked": true
+            },
+            {
+                  "id": 4,
+                  "pName": "大米",
+                  "src": "/uploads/04.jpg",
+                  "price": 50,
+                  "count": 1,
+                  "checked": true
+            },
+            {
+                  "id": 5,
+                  "pName": "路由器",
+                  "src": "/uploads/05.jpg",
+                  "price": 110,
+                  "count": 1,
+                  "checked": true
+            },
+            {
+                  "id": 6,
+                  "pName": "罐头",
+                  "src": "/uploads/06.jpg",
+                  "price": 20,
+                  "count": 1,
+                  "checked": true
+            }
+      ]
