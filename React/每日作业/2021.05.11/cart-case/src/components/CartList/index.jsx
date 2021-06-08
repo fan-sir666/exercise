@@ -1,46 +1,16 @@
 import React, { Fragment } from 'react';
 
 class CartList extends React.Component {
-    // constructor(){
-    //    super();
-    //    this.txt = React.createRef();
-    // }
-
-    //#region 输入数量
-    // handleChangeVal = (id) => {
-    //     // console.log(id);
-    //     // console.dir(this.txt.current);
-    //     // let val = parseInt(this.txt.current.value);
-    //     // console.log(val);
-    //     // // 处理非数字 负数的情况
-    //     // if(isNaN(val) || val < 0) {
-    //     //     console.log(11111);
-    //     //     val = 0;
-    //     // }
-    //     // // console.log(id,val);
-    //     // this.props.zcfChange({
-    //     //     type:'change',
-    //     //     id: id,
-    //     //     num: val < 0 ? 0 : val
-    //     // })
-    // }
-    //#endregion
-    handleChangeVal = (id,e) => {
-        let val = +e.target.value;
-        console.log(id+'-----------'+val);
-        // console.log(val);
-        // 处理非数字 负数的情况
-        if(isNaN(val) || val < 0) {
-            val = 0;
+    //#region 输入值
+    handleChange = (id, e) => {
+        // console.log(id, e.target.value);
+        let val = +e.target.value
+        if(val < 0 || isNaN(val)){
+            val = 0
         }
-        // console.log(id,val);
-        this.props.zcfChange({
-            type:'change',
-            id: id,
-            num: val < 0 ? 0 : val
-        })
+        this.props.zcfChange(id,val)
     }
-    
+    //#endregion
     render() {
         return (
             <Fragment>
@@ -51,12 +21,11 @@ class CartList extends React.Component {
                                 <img src={item.img} alt="" />
                                 <div className="name">{item.name}</div>
                                 <div className="change">
-                                    <a href="#!">－</a>
-                                    <input type="text" className="num" value={item.num} onChange={(e) => this.handleChangeVal(item.id,e)}/>
-                                    {/* <input type="text" className="num" value={item.num} ref={this.txt} onBlur={this.handleChangeVal.bind(this,item.id)} /> */}
-                                    <a href="#!">＋</a>
+                                    <a href="#!" onClick={()=>this.props.zcfminus(item.id)}>－</a>
+                                    <input type="text" className="num" value={item.num} onChange={(e) => this.handleChange(item.id, e)} />
+                                    <a href="#!" onClick={()=>this.props.zcfadd(item.id)}>＋</a>
                                 </div>
-                                <div className="del" onClick={()=> this.props.zcfdel(item.id)}>×</div>
+                                <div className="del" onClick={() => this.props.zcfdel(item.id)}>×</div>
                             </div>
                         ))
                     }

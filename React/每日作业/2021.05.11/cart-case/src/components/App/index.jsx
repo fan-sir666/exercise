@@ -46,50 +46,47 @@ class App extends React.Component {
 
     //#region 删除
     handleDel = (id) => {
-        // console.log(id);
         const newArr = this.state.list.filter(item => item.id !== id);
         this.setState({
             list: newArr
         })
     }
-
-    // componentDidUpdate(){
-    //     console.log("update");
-    // }
-
     //#endregion
-    //#region 数量的改变
-    handleChange = (aaa) => {
-        // if (parms.type === "change") {
-        //     this.state.list.some(item => {
-        //         if (item.id === parms.id) {
-        //             item.num = (parms.num < 0 ? 0 : parms.num);
-        //             return true
-        //         }
-        //     })
-        //     // console.log(this.state.list);
-        //     // 改变状态
-        //     this.setState({
-        //         list: this.state.list
-        //     })
-        // }
-        // 解构出list数组
-        let { list } = this.state;
-        // 输入改变数量
-        if (aaa.type === "change") {
-            // console.log(parms);
-            // 修改状态
-            this.setState({
-                // 遍历id相同的对象 修改数量
-                list: list.map(item => {
-                    if (item.id === aaa.id) {
-                        return {...item, num:aaa.num}
-                    } else {
-                        return item;
-                    }
-                })
+    //#region 
+    handleChange = (id, val) => {
+        // console.log(id,val);
+        this.state.list.map(item => {
+            if (item.id === id) {
+                item.num = val
+            }
+            return item
+        })
+        // 更新状态
+        this.setState({})
+    }
+    //#endregion
+    //#region ++ --
+    handleAdd = (id) => {
+        this.setState({
+            ...this.state,
+            list: this.state.list.map(item => {
+                if (item.id === id) {
+                    item.num = item.num + 1
+                }
+                return item
             })
-        }
+        })
+    }
+    handleMinus = (id) => {
+        this.setState({
+            ...this.state,
+            list: this.state.list.map(item => {
+                if (item.id === id) {
+                    item.num = item.num <= 0 ? 0 : item.num - 1
+                }
+                return item
+            })
+        })
     }
     //#endregion
     render() {
@@ -98,7 +95,7 @@ class App extends React.Component {
                 <div className="container">
                     <div className="cart">
                         <CartTitle fczname={this.state.name}></CartTitle>
-                        <CartList fczlist={this.state.list} zcfdel={this.handleDel} zcfChange={this.handleChange}></CartList>
+                        <CartList fczlist={this.state.list} zcfdel={this.handleDel} zcfChange={this.handleChange} zcfadd={this.handleAdd} zcfminus={this.handleMinus}></CartList>
                         <CartTotal fczlist={this.state.list}></CartTotal>
                     </div>
                 </div>
