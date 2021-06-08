@@ -1,4 +1,4 @@
-import { ADD_DATA, CLEAR_STATUS, DEL_DATA, FIX_DATA, FIX_KEY } from "./actionTypes";
+import { ADD_DATA, CLEAR_DATA, DEL_DATA, FIX_DATA, FIX_KEY } from "./actionTypes";
 
 // 初始化数据
 const initializeState = {
@@ -19,20 +19,16 @@ const initializeState = {
 // 创建reducer函数
 const reducer = (state = initializeState, action) => {
     switch (action.type) {
-        // 1.6 添加数据处理
         case ADD_DATA:
             return {
                 ...state,
                 list: [...state.list, action.task]
             }
-
-            // 2.5 删除数据处理
         case DEL_DATA:
             return {
                 ...state,
                 list: state.list.filter(item => item.id !== action.id)
             }
-            // 3.5 更改任务状态数据处理
         case FIX_DATA:
             return {
                 ...state,
@@ -40,23 +36,21 @@ const reducer = (state = initializeState, action) => {
                     if (item.id === action.id) {
                         return {...item, status: !item.status }
                     }
-                    return item;
+                    return item
                 })
             }
-            // 4.4 切换任务数据处理
         case FIX_KEY:
             return {
                 ...state,
                 activeKey: action.key
             }
-            // 5.4 清除已完成任务数据处理
-        case CLEAR_STATUS:
+        case CLEAR_DATA:
             return {
                 ...state,
-                list: state.list.filter(item => !item.status)
+                list: state.list.filter(item => item.status !== true)
             }
         default:
-            return state;
+            return state
     }
 }
 
