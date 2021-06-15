@@ -1,0 +1,7 @@
+export const GET_DATA = 'GET_DATA'
+export const SAVE_DATA = 'SAVE_DATA'
+export const ADD_DATA = 'ADD_DATA'
+export const DEL_DATA = 'DEL_DATA'
+export const FIX_STATUS = 'FIX_STATUS'
+export const FIX_TASK = 'FIX_TASK'
+export const CLEAR_DATA = 'CLEAR_DATA'
