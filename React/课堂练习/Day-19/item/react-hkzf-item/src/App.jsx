@@ -9,22 +9,22 @@ class App extends React.Component {
       {
         title: "首页",
         icon: "icon-ind",
-        path: "/home"
+        path: "/tab/home"
       },
       {
         title: "找房",
         icon: "icon-findHouse",
-        path: "/findhouse"
+        path: "/tab/findhouse"
       },
       {
         title: "资讯",
         icon: "icon-infom",
-        path: "/news"
+        path: "/tab/news"
       },
       {
         title: "我的",
         icon: "icon-my",
-        path: "/profile"
+        path: "/tab/profile"
       },
     ]
   }
@@ -67,7 +67,6 @@ class App extends React.Component {
         </div>
       </div>
     )
-
   }
 }
 

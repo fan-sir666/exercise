@@ -6,12 +6,23 @@ body {
   background-color: #fff;
 }
 
-p {
-  margin: 0;
-}
 * {
   box-sizing: border-box;
 }
+
+ul,
+li,
+p,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+
 
 /* TabBar */
 .tabbar {
@@ -19,6 +30,7 @@ p {
   width: 100%;
   bottom: 0;
 }
+
 .am-tab-bar-tab .iconfont {
   font-size: 20px;
 }
