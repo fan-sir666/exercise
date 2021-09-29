@@ -57,9 +57,9 @@ export default {
     },
     //#endregion
     //#region 清除已完成
-    clearFn() {
-      this.list = this.list.filter((item) => item.isDone != true);
-    },
+    // clearFn() {
+    //   this.list = this.list.filter((item) => item.isDone != true);
+    // },
     //#endregion
   },
   watch: {

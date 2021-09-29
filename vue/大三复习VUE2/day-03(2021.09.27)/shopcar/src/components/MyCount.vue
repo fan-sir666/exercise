@@ -1,13 +1,24 @@
 <template>
   <div class="my-counter">
-    <button type="button" class="btn btn-light">-</button>
-    <input type="number" class="form-control inp" />
-    <button type="button" class="btn btn-light">+</button>
+    <button type="button" class="btn btn-light" :disabled="obj.goods_count === 1" @click="handleMinus">-</button>
+    <input
+      type="number"
+      class="form-control inp"
+      v-model.number="obj.goods_count"
+    />
+    <button type="button" class="btn btn-light" @click="obj.goods_count++">+</button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["obj"],
+  methods: {
+    handleMinus() {
+      this.obj.goods_count > 1 && this.obj.goods_count--;
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

@@ -1,16 +1,16 @@
 <template>
-  <div class="route">
-    <!-- to属性相当于href 添加链接 -->
-    <router-link class="ljie" to="/home?name=张三">首页</router-link>
-    <router-link class="ljie" to="/about/12345">关于</router-link>
-    <!-- 添加路由对应的视图 -->
+  <div>
+    <div>
+      <router-link :to="{name:'home'}">首页</router-link
+      >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <router-link to="/about">关于</router-link>
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
 };
 </script>
 
@@ -22,8 +22,5 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-.ljie {
-  margin: 0 20px;
 }
 </style>

@@ -2,21 +2,21 @@
   <div class="my-goods-item">
     <div class="left">
       <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="input" />
-        <label class="custom-control-label" for="input">
+        <input type="checkbox" class="custom-control-input" :id="gItem.id" v-model="gItem.goods_state" />
+        <label class="custom-control-label" :for="gItem.id">
           <img
-            src="http://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+            :src="gItem.goods_img"
             alt=""
           />
         </label>
       </div>
     </div>
     <div class="right">
-      <div class="top">商品名字</div>
+      <div class="top">{{gItem.goods_name}}</div>
       <div class="bottom">
-        <span class="price">¥ 100</span>
+        <span class="price">¥ {{gItem.goods_price}}</span>
         <span>
-          <MyCount></MyCount>
+          <MyCount :obj="gItem"></MyCount>
         </span>
       </div>
     </div>
@@ -26,6 +26,9 @@
 <script>
 import MyCount from './MyCount'
 export default {
+  props:{
+    gItem:Object
+  },
   components:{
     MyCount
   }
@@ -41,7 +44,7 @@ export default {
     img {
       width: 120px;
       height: 120px;
-      margin-right: 8px;
+      margin: 0 8px;
       border-radius: 10px;
     }
     .custom-control-label::before,

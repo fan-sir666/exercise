@@ -2,9 +2,9 @@
   <div>
     <MyHeader title="购物车案例"></MyHeader>
     <div class="main">
-      <MyGoods></MyGoods>
+      <MyGoods v-for="item in list" :key="item.id" :gItem="item"></MyGoods>
     </div>
-    <MyFooter></MyFooter>
+    <MyFooter :list="list"></MyFooter>
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
       url: "/api/cart",
     }).then((res) => {
       console.log(res);
-      this.list = res.data.list
+      this.list = res.data.list;
     });
   },
   watch: {
@@ -34,7 +34,7 @@ export default {
       handler(val) {
         localStorage.setItem("carList", JSON.stringify(val));
       },
-      deep:true,
+      deep: true,
     },
   },
   components: {
