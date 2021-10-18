@@ -1,5 +1,5 @@
 <template>
-<p>联系方式:{{$route.query.phone}}</p>
+<p>联系方式:{{$route.params.phone}}</p>
 </template>
 
 <script>
