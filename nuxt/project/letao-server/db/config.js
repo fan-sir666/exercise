@@ -4,7 +4,7 @@ module.exports.config = {
         connectionLimit: 10, // 最大连接数
         host: 'localhost', // 主机
         user: 'root', // 用户名
-        password: '123123', // 密码
+        password: '123456', // 密码
         database: 'letao_db' // 数据库名称
     },
     // uat 测试环境
@@ -12,7 +12,7 @@ module.exports.config = {
         connectionLimit: 10, // 最大连接数
         host: 'localhost', // 主机
         user: 'root', // 用户名
-        password: '123123', // 密码
+        password: '123456', // 密码
         database: 'letao_db' // 数据库名称
     },
     // prd 生产环境
@@ -20,7 +20,7 @@ module.exports.config = {
         connectionLimit: 10, // 最大连接数
         host: 'localhost', // 主机
         user: 'root', // 用户名
-        password: '123123', // 密码
+        password: '123456', // 密码
         database: 'letao_db' // 数据库名称
     },
 }

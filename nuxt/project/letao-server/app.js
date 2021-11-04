@@ -6,8 +6,12 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-// const jwt = require('koa-jwt');
-// const { jwtSecret } = require('./config');
+// 解决跨域
+const cors = require('koa-cors')
+
+// jwt鉴权
+const jwt = require('koa-jwt');
+const { jwtSecret } = require('./config');
 // 启动dotenv
 require('dotenv').config()
 
@@ -21,23 +25,24 @@ const order = require('./routes/order');
 // error handler
 onerror(app)
 
+// middlewares
+// 应用cors中间件后端解决跨域
+app.use(cors());
 // 使用koa-jwt中间件  来拦截 客户端在调用服务端接口时，如果请求头中没有设置token  返回401 
-// app.use(function(ctx, next) {
-//     return next().catch((err) => {
-//         if (401 == err.status) {
-//             ctx.status = 401;
-//             ctx.body = 'Protected resource, use Authorization header to get access\n';
-//         } else {
-//             throw err;
-//         }
-//     });
-// });
+app.use(function(ctx, next) {
+    return next().catch((err) => {
+        if (401 == err.status) {
+            ctx.status = 401;
+            ctx.body = 'Protected resource, use Authorization header to get access\n';
+        } else {
+            throw err;
+        }
+    });
+});
 
 // jwt(加密信息)  加密信息一定要跟token生成使用加密字符串保持一致
 // unless 排除哪些不需要在请求带token
-// app.use(jwt({ secret: jwtSecret }).unless({ path: [/^\/public/, /^\/users\/register/, /^\/users\/login/] }));
-
-// middlewares
+app.use(jwt({ secret: jwtSecret }).unless({ path: [/^\/public/, /^\/users\/register/, /^\/users\/login/] }));
 app.use(bodyparser({
     enableTypes: ['json', 'form', 'text']
 }))

@@ -11,7 +11,7 @@ const { secret, jwtSecret } = require('../config');
 //#region 用户注册
 const register = async(ctx) => {
     // 读取到请求参数
-    const { username, password, mobile } = ctx.request.body;
+    const { username, password, mobile } = ctx.request.body.values;
     // console.log(username, password, mobile);
     // 参数校验 是否合法   不合法返回提示信息  并return 退出
     const schema = Joi.object({
@@ -57,7 +57,7 @@ const register = async(ctx) => {
 //#region 用户登录
 const login = async(ctx) => {
     // 读取到请求参数
-    const { username, password } = ctx.request.body;
+    const { username, password } = ctx.request.body.values;
     // 查询用户信息
     const result = await findUserInfo(username, cryptoPassword(password + secret));
     if (result[0]) {
@@ -68,7 +68,7 @@ const login = async(ctx) => {
         }, jwtSecret, { expiresIn: '1h' });
         ctx.body = {
             status: 200,
-            data: { token },
+            data: { token, username, mobile:result[0].mobile },
             message: "登录成功"
         }
     } else {

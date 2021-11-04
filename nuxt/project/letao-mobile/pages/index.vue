@@ -9,19 +9,22 @@
     <!-- 4.品牌 -->
     <IndexBrand />
     <!-- 5.运动 -->
-    <IndexSports :sports="sports"/>
+    <IndexSports :sports="sports" />
   </div>
 </template>
 
 <script>
 export default {
-  async asyncData({ $axios }) {
-    // 轮播图
-    const { swipperList } = await $axios.$get("/banners");
-    // 宫格
-    const { gridList } = await $axios.$get("/gridlist");
-    // 运动专区
-    let { sports } = await $axios.$get("/sports");
+  async asyncData({ $api }) {
+    // // 轮播图
+    // const { swipperList } = await $api.IndexSwipper();
+    // // 宫格
+    // const { gridList } = await $api.IndexGridList();
+    // // 运动专区
+    // let { sports } = await $api.IndexSport();
+    
+    // Promise.all() 整体发起请求
+    const [{swipperList = []},{ gridList = [] },{ sports = [] }] = await Promise.all([$api.IndexSwipper(),$api.IndexGridList(),$api.IndexSport()])
     return {
       swipperList,
       gridList,
