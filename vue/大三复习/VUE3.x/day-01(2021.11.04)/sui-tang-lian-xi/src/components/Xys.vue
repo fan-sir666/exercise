@@ -28,6 +28,7 @@ export default {
         person[key] = newPerson[key]
       }
       // 使用ref声明的响应式数据 在修改的时候需要 xxx.value
+      // 使用reactive声明的引用类型 整体赋值 需要使用遍历的方式
     }
     return { price, arrList, person ,clickHandler};
   },
