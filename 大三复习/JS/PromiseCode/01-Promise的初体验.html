@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="demo" type="button" value="按钮" />
+    <script>
+        /* Promise: 
+                        是一个构造函数, 该对象用来封装一个 异步操作  并可以获取其成功/失败的结果值. 
+                        Promise的状态(PromiseState): pending 等待 | resolved、fulfilled 成功 | rejected 失败 , 
+                        且一个Promise对象只能改变一次状态：pending -> resolved || pending -> rejected.
+                        Promise的值(PromiseResult): 保存着异步任务【成功、失败】的结果.
+                        无论是状态还是实例对象的值 改变都是 调用 resolve或reject方法所导致的. Promise的执行器(实例对象里面参数箭头函数)是同步立即执行的!
+
+                        Promise实例对象原型上有then和catch方法
+                */
+        document.getElementById("demo").onclick = function() {
+
+            const p = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        let num = randNumm(1, 100);
+                        if (num <= 30) {
+                            resolve(num);
+                        } else {
+                            reject(num)
+                        }
+                    })
+                })
+                // p.then((num) => {
+                //     alert(`恭喜您中奖了,中奖数字为${num}`)
+                // }, (num) => {
+                //     alert(`很遗憾再接再厉,数字为${num}`)
+                // })
+            p.then(value => alert(`恭喜您中奖了,中奖数字为${value}`)).catch(reason => alert(`很遗憾再接再厉,数字为${reason}`))
+        }
+
+        function randNumm(m, n) {
+            return Math.ceil(Math.random() * (n - m + 1) + m - 1);
+        }
+    </script>
+</body>
+
+</html>

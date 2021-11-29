@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            resolve('ok');
+        })
+        let result = p.then(value => {
+                console.log(value);
+                return new Promise((resolve, reject) => {
+                    resolve('success');
+                })
+            }).then(value => {
+                console.log(value);
+                return new Promise((resolve, reject) => {
+                    reject('error');
+                })
+            })
+            .then(value => {
+                console.log(1111);
+                console.log(value);
+                return new Promise((resolve, reject) => {
+                    resolve('xxxx');
+                })
+            })
+            // reason => {
+            //     console.log(22222);
+            //     console.log(reason);
+            //     return new Promise((resolve, reject) => {
+            //         resolve('xxxx');
+            //     })
+            // }
+            .then(value => {
+                console.log(value);
+                return new Promise((resolve, reject) => {
+                    resolve('yyyy');
+                })
+            })
+            .catch(reason => {
+                console.log(reason);
+            })
+        console.log(result);
+        // 异常穿透: 只要是执行器中出现 reject 函数的调用 ，下一级以及之后的then方法的第一回调就进不去了,直接会走进最后catch方法
+        // 但是reject 的下一级有第二个回调 就会走进去，在代码中只要保证上一级then是成功的下一级就会执行
+    </script>
+</body>
+
+</html>

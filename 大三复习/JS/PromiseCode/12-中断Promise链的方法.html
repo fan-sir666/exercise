@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            resolve('ok');
+        })
+        p.then(value => {
+            console.log(value);
+        }).then(() => {
+            console.log(111111);
+            // 终端Promise链的方式  只有then方法 状态是pending是下一级不再执行
+            return new Promise(()=>{});
+        }).then(() => {
+            console.log(222222);
+        }).then(() => {
+            console.log(333333);
+        }).catch(reason => {
+            console.log(reason);
+        })
+    </script>
+</body>
+
+</html>

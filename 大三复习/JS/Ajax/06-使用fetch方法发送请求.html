@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>发送请求</button>
+    <script>
+        const btn = document.querySelector('button')
+        btn.onclick = async() => {
+                try {
+                    const result = await fetch('http://localhost:8000/delay', {
+                            method: 'POST',
+                            headers: {
+                                token: 'dasdsadasdas'
+                            },
+                            body: "name=张三&age=20"
+                        })
+                        // console.log(result.text());
+                    const p = await result.text()
+                    console.log(p);
+                } catch (error) {
+                    throw new Error(error)
+                }
+            }
+            // btn.onclick = () => {
+            //     fetch('http://localhost:8000/delay', {
+            //         method: 'POST',
+            //         // headers: {
+            //         //     token: 'sdasxcasda'
+            //         // },
+            //         body: "name=张三&age=20"
+            //     }).then(value => {
+            //         console.log(value);
+            //         return value.text();
+            //     }).then(value => {
+            //         console.log(value);
+            //     })
+            // }
+    </script>
+</body>
+
+</html>

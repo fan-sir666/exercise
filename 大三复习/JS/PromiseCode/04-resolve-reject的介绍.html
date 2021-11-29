@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // resolve参数为非Promise类型的对象,则返回结果为成功的promise对象
+        let p1 = Promise.resolve(521);
+        console.log(p1);
+        // 参数为Promise类型的对象,则返回结果由执行器内 看是成功调用还是失败调用导致结果
+        let p2 = Promise.resolve(new Promise((resolve, reject) => {
+            // 执行器会同步立即执行
+            // resolve('ok')
+            reject('error');
+        }))
+        p2.catch(reason => console.log(reason))
+        console.log(p2); // 如果是错误的返回结果我们不处理浏览器会报错Uncaught (in promise) error
+
+        // reject 无论参数是啥其状态都是rejected
+        let p3 = Promise.reject(521);
+        let p4 = Promise.reject(new Promise((resolve, reject) => {
+            throw reject('ok');
+        }));
+        p3.catch(reason => console.log(reason))
+        p4.catch(reason => console.log(reason))
+        console.log(p3);
+        console.log(p4);
+    </script>
+</body>
+
+</html>

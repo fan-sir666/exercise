@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            // 调用resolve、reject 会改变p的状态
+            resolve('ok');
+            console.log(1111);
+            reject('errr');
+            console.log(22222);
+            // throw 抛出错误也会改变p的状态
+            throw '出问题了';
+            // 当三个代码同时存在时  返回15行的成功结果,证实了状态只能改变一次
+        })
+        p.then(value=>{
+            console.log(value); // 最后输出这个 因为15行的代码是微任务
+        })
+        console.log(p);
+    </script>
+</body>
+
+</html>
