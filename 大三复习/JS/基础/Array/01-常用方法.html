@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // console.log([]);
+        //#region push 数组末尾添加元素，返回新数组的长度,改变原数组
+        /* var arr = [1, 2, 3];
+        var res = arr.push(6, 7, 8);
+        console.log(res); // ?  6
+        console.log(arr); // ?  [1, 2, 3, 6, 7, 8] */
+        //#endregion
+        //#region unshift 数组头部添加元素，返回新数组的长度，改变原数组
+        /* var arr = [1, 2, 3];
+        var res = arr.unshift(6, 7, 8);
+
+        console.log(res); // ? 6
+        console.log(arr); // ? [6, 7, 8, 1, 2, 3] */
+        //#endregion
+        //#region pop 删除数组末尾的元素,返回被删除的元素，改变原数组
+        // var arr = [1, 2, 3];
+        // var res = arr.pop();
+
+        // console.log(res); // ? 3
+        // console.log(arr); // ? [1, 2]
+        //#endregion
+        //#region shift 删除数组头部元素,返回被删除的元素，改变原数组
+        // var arr = [1, 2, 3];
+        // var res = arr.shift();
+
+        // console.log(res); // ? 1
+        // console.log(arr); // ? [2, 3]
+        //#endregion
+        //#region splice 删除、增加、替换，返回操作的元素数组形式返回,改变原数组（口诀:参数大于等于3不是增加就是替换，取决于第二个参数）
+        // var arr = [1, 2, 3, 4, 5, 6, 7];
+        // 删除
+        /* var res = arr.splice(1); // 只传第一个参数，表示删除的起点 删除的元素包含开始下标元素，到最后一个元素
+        console.log(res); // ? [2, 3, 4, 5, 6, 7]
+        console.log(arr); // ? [1] */
+        /* var res = arr.splice(2, 3); // 两个参数, 从第几个开始删，包含起始元素，第二个参数是删除几个
+        console.log(res); // ? [3, 4, 5]
+        console.log(arr); // ? [1, 2, 6, 7] */
+        // var res = arr.splice(0); // 清空数组
+        // var res = arr.splice(0,1); // 删除第一个元素
+        // var res = arr.splice(arr.length-1); // 删除最后一个
+        // console.log(res); // ? 
+        // console.log(arr); // ? 
+
+        // 增加 第一参数从哪里增加  第二个参数必须为0也是替换个数为0的意思 后面的参数是增加或替换的元素
+        // var arr = [1, 2, 3, 4, 5, 6, 7];
+        // var res = arr.splice(2, 0, 8, 9); 
+        // console.log(res); // ? []
+        // console.log(arr); // ? [1, 8, 9, 2, 3]
+
+        // 替换 第二个参数不为0 代表替换的个数 第二个参数超出起始位后面元素的个数代表从起始位开始全部替换
+        // var arr = [1, 2, 3, 4, 5, 6, 7];
+        // var res = arr.splice(2, 5, 8, 9);
+        // console.log(res); // ? [3, 4, 5, 6, 7]
+        // console.log(arr); // ? [1, 2, 8, 9]
+        //#endregion
+
+        //#region slice 截取，返回截取的子数组，不改变原数组 
+        /* var arr = [1, 2, 3, 6, 7, 8];
+        var res = arr.slice(1, 4); //参数①开始下标,结束下标,返回的数组 [)
+        console.log(res); // ?  [2, 3, 6]
+        console.log(arr); // ? [1, 2, 3, 6, 7, 8] */
+        //#endregion
+        //#region concat 拼接,返回合并后的新数组，不改变原数组
+        /*  var arr = [1, 2, 3];
+         var res = arr.concat(1, [0, 0]); // 多个任意项，可以是数组，可以是单个项
+         console.log(res); // ? [1, 2, 3, 1, 0, 0]
+         console.log(arr); // ? [1, 2, 3] */
+        //#endregion
+
+        //#region includes 查找数组中是否包含某个元素，返回布尔值，不改变原数组
+        // 参数一必传，表示要查询的元素，参数二可选，表示从指定位置查起（若为负数，从后查起，负数超过数组长度，则置为 0）
+        /* var arr = [1, 2, 3];
+        var res = arr.includes(2);
+        console.log(res); // true
+        console.log(arr); // [1, 2, 3] */
+        //#endregion
+        //#region indexOf从前往后查、lastIndexOf从后往前查
+        // indexOf 查到第一个元素返回对应下标,不在向下查找,查不到返回-1 不改变原数组
+        // 参数一必传，表示要查询的元素，参数二可选，表示从指定位置查起
+        /* var arr = [1, 2, 3, 2, 3];
+        console.log(arr.indexOf(3)); // ? 2
+        console.log(arr.indexOf(8)); // ? -1 */
+        /* var arr = [1, 2, 3, 2, 2, 3, 4];
+        console.log(arr.lastIndexOf(3)); // ? 5 */
+        //#endregion
+        //#region find 返回满足条件的第一个元素,不在向下查找,没满足条件的返回undefined 不改变原数组
+        // 参数: callback:function(item, index, array){})
+        // const array = [5, 12, 8, 130, 44];
+        // const found = array.find(element => element > 10);
+        // console.log(found); // ? 12
+        // console.log(array); // ? [5, 12, 8, 130, 44]
+        //#endregion
+        //#region findIndex 返回满足条件的第一个元素的索引,不在向下查找,没满足条件的返回-1 不改变原数组
+        // 参数: callback
+        /* const array = [5, 12, 8, 130, 44];
+        const found = array.findIndex(element => element > 10);
+
+        console.log(found); // ? 1
+        console.log(array); // ? [5, 12, 8, 130, 44] */
+        //#endregion
+
+        //#region sort 返回排序后的数组，改变原数组
+        // 默认排序顺序是根据字符串 Unicode 码点。
+        // 参数: callback:(a, b) => a - b 口诀: a-b升，b-a降
+        /* var arr = [1, 3, 9, 2, 5, 3, 7, 4, 5];
+
+        var res1 = arr.sort((a, b) => a - b);
+        console.log(res1) // ? [1, 2, 3, 3, 4, 5, 5, 7, 9]
+
+        var res2 = arr.sort((a, b) => b - a);
+        console.log(res2) // ? [9, 7, 5, 5, 4, 3, 3, 2, 1]
+
+        console.log(arr) // ? [9, 7, 5, 5, 4, 3, 3, 2, 1] */
+
+        //#endregion
+        //#region reverse 翻转 改变原数组
+        /*  var arr = [1, 2, 3, 3, 4, 5, 5, 7, 9]
+         console.log(arr.reverse()) // ? [9, 7, 5, 5, 4, 3, 3, 2, 1]
+         console.log(arr) // ? [9, 7, 5, 5, 4, 3, 3, 2, 1] */
+        //#endregion
+
+        //#region join 将数组的所有元素连成一个指定分隔符的字符串并返回,不改变原数组
+        // 注意: 如果数组只有一个项目， 那么将返回该项目而不使用分隔符。
+        /* var arr = [1, 2, 3, 3, 4, 5, 5, 7, 9];
+        console.log(arr.join('-')); // ? '1-2-3-3-4-5-5-7-9'
+        console.log(arr); // [1, 2, 3, 3, 4, 5, 5, 7, 9] */
+        //#endregion
+        //#region toString 返回一个含有所有元素的字符串
+        /* var arr = [1, 2, 3, 3, 4, 5, 5, 7, 9];
+        console.log(arr.toString()); // ? '1,2,3,3,4,5,5,7,9'
+        console.log(arr); // ? [1, 2, 3, 3, 4, 5, 5, 7, 9] */
+        //#endregion
+
+        //#region for 遍历数组,内部可以阻塞
+        /* var arr = [1, 2, 3];
+        for (let i = 0; i < arr.length; i++) {
+            // ...
+            console.log("continue 打断当次循环，进入下次循环");
+            console.log("break  直接打断循环，跳出循环");
+        } */
+        //#endregion
+        //#region forEach 改变元素组 参数callback
+        /* const array1 = ['a', 'b', 'c'];
+        array1.forEach((item, index) => console.log(item, index)); */
+        //#endregion
+        //#region map 创建由callback返回值组成的新数组,不改变原数组
+        /*  const array1 = [1, 4, 9, 16];
+         const map1 = array1.map(x => {
+             if (x > 4) {
+                 return x * 2
+             }
+             return x
+         });
+         console.log(map1); // ? [1, 4, 18, 32]
+         console.log(array1); // ? [1, 4, 9, 16] */
+        //#endregion
+        //#region filter 创建一个满足callback过滤条件的新数组，没有返回空数组，不改变原数组
+        /* let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        let res = nums.filter(num => num >5);
+        console.log(res); // [6, 7, 8, 9, 10] */
+        //#endregion
+        //#region every 查看每一个元素是否都满足callback的筛选条件,返回布尔值,不改变原数组
+        /* let arr = [1, 2, 3, 4, 5]
+        console.log(arr.every((item, index, array) => item > 3)) // ? false */
+        //#endregion
+        //#region some 查看数组中是否有一个满足callback的筛选条件,返回布尔值，不改变原数组
+        /* let arr = [1, 2, 3, 4, 5]
+        console.log(arr.some((item, index, array) => item > 3)) // ? true */
+        //#endregion
+        //#region reduce 做累计相关的数组处理, 参数一:callback(初始值,当前值,当前索引)，参数二可选: 给定初始值,如果不给处理的数组第一个元素为初始值，当前索引从1开始
+        // 1. 数组求和
+        // let sum = [0, 1, 2, 3].reduce((accumulator, currentValue) => {
+        //     return accumulator + currentValue;
+        // }, 0);
+        // console.log(sum); // ? 6
+
+        // 2. 数组去重
+        // let arr = ['a', 'b', 'a', 'b', 'c', 'e', 'e', 'c', 'd', 'd'];
+        // let newArr = arr.reduce((acc, current) => {
+        //     if (acc.indexOf(current) === -1) {
+        //         acc.push(current);
+        //     }
+        //     return acc;
+        // }, []);
+        // console.log(newArr); // ? ['a', 'b', 'c', 'e', 'd']
+
+        // 3. 数组扁平化
+        // let flat = [
+        //     [1, 2, 3],
+        //     [4, 5, 6],
+        //     [7, 8, 9]
+        // ].reduce((prev, cur, index, array) => {
+        //     return [...prev, ...cur];
+        // });
+        // console.log(flat); //  [1, 2, 3, 4, 5, 6, 7, 8]
+        //#endregion
+
+        //#region keys 返回一个包含数组中每个索引键的 `Array Iterator` 对象。
+        // const array1 = ['a', 'b', 'c'];
+        // const iterator = array1.keys(); // 返回一个迭代器对象
+        // for (const key of iterator) {
+        //     console.log(key); //  ?  0  1 2 数字型索引      
+        // }
+        //#endregion 
+        //#region values 返回一个新的 `Array Iterator` 对象，该对象包含数组每个索引的值。
+        /* const array1 = ['a', 'b', 'c'];
+        const iterator = array1.values(); // 返回一个迭代器对象
+        for (const value of iterator) {
+            console.log(value); //  ? a b c
+        } */
+        //#endregion
+
+        //#region fill 指定填充范围填充给定的值，包含起始位不包含截止位 改变原数组
+        // 参数:①填充固定值、②起始位、③终止位
+        // let arr = [1, 2, 3, 4]
+        // console.log(arr.fill(-1, 1, 3)); // [1, -1, -1, 4]
+
+        // 多用于创建指定长度的空数组填充
+        // let arr1 = new Array(3)
+        // arr1.fill(1) // arr1 = [1, 1, 1]
+        //#endregion
+        //#region flat 用于扁平化数组或去除空项，返回新数组，不改变原数组
+        // 扁平化数组 
+        // let arr1 = [1, 2, [3, 4]];
+        // newArr1 = arr1.flat();
+        // console.log(newArr1); // ? [1, 2, 3, 4]
+
+        // let arr2 = [1, 2, [3, 4, [5, 6]]];
+        // newArr2 = arr2.flat(2);
+        // console.log(newArr2); // [1, 2, 3, 4, 5, 6]
+
+        //使用 Infinity，可展开任意深度的嵌套数组
+        // let arr3 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
+        // newArr3 = arr3.flat(Infinity);
+        // console.log(arr3, newArr3); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        // 去除空项
+        // let arr4 = [1, 2, , 4, 5];
+        // newArr4 = arr4.flat();
+        // console.log(arr4, newArr4); // ? [1, 2, empty, 4, 5] (4) [1, 2, 4, 5]
+        //#endregion
+    </script>
+</body>
+
+</html>

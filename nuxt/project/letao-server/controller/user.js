@@ -2,11 +2,11 @@ const { register: userRegister, findUserByusername, findUserInfo } = require('..
 // 服务端表单校验
 const Joi = require('joi');
 // jwt鉴权生成token
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 // 密码加密
 const { cryptoPassword } = require('../utils');
-// 加盐字符串
-const { secret, jwtSecret } = require('../config');
+// 加盐字符串, jwtSecret
+const { secret,  jwtSecret } = require('../config');
 
 //#region 用户注册
 const register = async(ctx) => {
@@ -62,13 +62,13 @@ const login = async(ctx) => {
     const result = await findUserInfo(username, cryptoPassword(password + secret));
     if (result[0]) {
         // 根据用户名和密码生成token
-        const token = jwt.sign({
-            username,
-            password
-        }, jwtSecret, { expiresIn: '1h' });
+        // const token = jwt.sign({
+        //     username,
+        //     password
+        // }, jwtSecret, { expiresIn: '1h' });
         ctx.body = {
             status: 200,
-            data: { token, username, mobile:result[0].mobile },
+            data: { token, username, mobile: result[0].mobile },
             message: "登录成功"
         }
     } else {

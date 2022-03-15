@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //#region json数据与对象的转化
+        // JSON.stringify() // 对象转为JSON字符串
+        // JSON.parse() // JSON字符串转为对象
+        //#endregion
+        //#region hasOwnProperty 判断对象是否含有某个属性,返回布尔值
+        // let obj = {
+        //     name: '张三'
+        // }
+        // console.log(obj.hasOwnProperty('name')); // true
+        //#endregion
+        //#region Object.assign 返回合并后的新对象
+        /*  var o2 = {
+             name: 'abc',
+             age: 18
+         };
+         var o3 = {
+             id: 1,
+             address: '合肥'
+         };
+         var o4 = Object.assign(o2, o3);
+         console.log(o4) 
+         //{name: "abc", age: 18, id: 1, address: "合肥"}
+         var o5 = {
+             flag: 'a',
+             address: '北京'
+         };
+         console.log(Object.assign(o4, o5));
+         //{name: "abc", age: 18, id: 1, address: "北京", flag: "a"}
+         //注意: 当属性相同时，后面会覆盖属性值，属性不相同则添加属性 */
+        //#endregion
+        //#region Object.defineProperty 单个 ||defineProperties 多个: 定义一个是否可以修改属性的对象,定义好的对象属性删不掉
+        /* let obj = {}
+        Object.defineProperties(obj, {
+            'name': {
+                value: 'abc',
+                writable: false // true 可修改  false不可修改
+            },
+            'age': {
+                value: 18,
+                writable: true
+            }
+        })
+        obj.name = '张三'
+        console.log(obj); // {name: 'abc', age: 18}
+        obj.age = 25
+        console.log(obj); // {name: 'abc', age: 25}
+        delete obj.name
+        console.log(obj); // {name: 'abc', age: 25}
+        delete obj.age
+        console.log(obj); // {name: 'abc', age: 25}
+        let obj2 = {
+            name: '王五'
+        }
+        delete obj2.name
+        console.log(obj2); // {} */
+        //#endregion
+        //#region Object.keys 获取对象的键 || Object.values 获取对象的值 返回数组
+        /* var o7 = {
+            name: 'abc',
+            age: 18
+        };
+        var a2 = Object.keys(o7);
+        console.log(a2); //  ["name", "age"]
+        var a3 = Object.values(o7)
+        console.log(a3); // ["abc", 18]
+
+        // 一并获取键值entries 返回二维数组
+        var a4 = Object.entries(o7) 
+        console.log(a4); //[["name", "age"],["abc", 18]] */
+            
+        //#endregion
+    </script>
+</body>
+
+</html>

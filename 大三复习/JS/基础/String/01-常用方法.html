@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //#region charAt 返回指定字符,下标超出范围返回空字符串。 不改变原字符串 参数:下标默认0
+        // const str = 'hello';
+        // console.log(str.charAt(2)); // ? l
+        // console.log(typeof str.charAt(5)); // ? 空字符串
+        //#endregion
+        //#region charCodeAt 返回指定字符的ASCII十进制码
+       /*  const str = 'hello';
+        console.log(str.charCodeAt(2)); // ? 108
+        console.log(str.charCodeAt(5)); // ? NAN */
+        //#endregion
+        //#region indexOf|lastIndexOf 查看字符串是否包含给定的字符串，有返回第一次出现的下标 没有返回-1 不改变原字符串
+        // console.log('Blue Whale'.indexOf('Blue')) // ? 0
+        // console.log('Blue Whale'.indexOf('Blute')) // ? -1
+        // console.log('Blue Whale'.indexOf('Whale', 0)) // ? 5
+        // console.log('Blue Whale'.indexOf('Whale', 5)) // ? 5 
+        // const str = 'demodemo';
+        // console.log(str.lastIndexOf('m')); // 6
+        //#endregion
+        //#region startsWith|endsWith 查看是否以给定的字串开头或结尾 返回布尔值 不改变原字符串
+        // 参数2: 从这里开始到最后 是否是给定字串开头 包含开始下标字符
+        // var str = "To be, or not to be, that is the question.";
+        // alert(str.startsWith("To be")); // true
+        // alert(str.startsWith("not to be")); // false
+        // alert(str.startsWith("not to be", 10)); // true
+        // alert(str.startsWith("be", 3)) // true
+
+        // 参数2: 从0到这里结束 是否是给定字串结尾 不包含结束下标字符
+        // var str = "To be, or not to be, that is the question.";
+        // alert(str.endsWith("question.")); // true
+        // alert(str.endsWith("to be")); // false
+        // alert(str.endsWith("to be", 19)); // true
+        // alert(str.endsWith("be", 5)); // true
+        //#endregion
+        //#region includes 是否包含子串 返回布尔值 不改变原字符串
+        // const str = 'To be, or not to be, that is the question.';
+        // console.log(str.includes('To be')); // ? true
+        // console.log(str.includes('question')); // ? true
+        // console.log(str.includes('nonexistent')); // ? false
+        // console.log(str.includes('To be', 1)); // ? false
+        // console.log(str.includes('TO BE')); // ? false
+        //#endregion
+
+        //#region concat 拼接一个或多个字符串, 返回一个新串,不改变原数组
+        /* let hello = 'Hello'
+        console.log(hello.concat('张三', '李四')) // ? Hello张三李四
+
+        let greetList = ['Hello', ' ', 'Venkat', '!']
+        console.log(''.concat(...greetList)) // ? Hello Venkat!
+        console.log(''.concat(true)) // ? 'true'
+        console.log(''.concat(4, 5)) // ? '45' */
+
+        //#endregion
+        //#region slice 截取字符串的一部分, 返回新字符串,不改变原字符串
+        // 注意: 包含起始不包含结束索引的元素
+        /* let str1 = 'good',
+            str2 = str1.slice(1, 3),
+            str3 = str1.slice(0, -1);
+        console.log(str2); // 输出：oo
+        console.log(str3); // 输出：goo */
+        //#endregion 
+        //#region substring 截取字符串的一部分, 返回新字符串,不改变原字符串
+        /* let str = 'Mozilla';
+
+        // 输出 
+        console.log(str.substring(0, 3)); //Moz
+
+        // 输出 
+        console.log(str.substring(1, 3)); // oz */
+        //#endregion
+        //#region substr 截取字符串的一部分, 返回新字符串,不改变原字符串
+        // 注意: 参数①起始索引、参数②截取个数
+        /*  let str = 'abcdefghij';
+
+         console.log('(1,2): ' + str.substr(1, 2)); //  (1,2): bc
+         console.log('(-3,2): ' + str.substr(-3, 2)); // (-3,2): hi
+         console.log('(-3): ' + str.substr(-3)); // (-3): hij
+         console.log('(1): ' + str.substr(1)); // (1): bcdefghij */
+        //#endregion
+        //#region replace 单个 || 全部 replaceAll 返回替换后的字符串 不改变原字符串
+        // let text = 'cat , bat , sat , fat';
+        // let result = text.replace('at', 'ond');
+        // console.log(result); // ? cond , bat , sat , fat
+
+        // result = text.replace(/at/g, 'ond');
+        // console.log(result); //=> ? cond , bond , sond , fond
+
+        // console.log('aabbcc'.replaceAll('b', '.')); // aa..cc
+        //#endregion
+        //#region repeat 返回一个以当前字符串连续拼接后的新串 参数: 拼接次数，如果时小数向下取整
+        // console.log('abc'.repeat(1)); // abc 
+        // console.log('abc'.repeat(2)); // abcabc
+        // console.log('abc'.repeat(3.5)); // abcabcabc
+        //#endregion
+
+        //#region split 返回以指定字符分割的字符串数组，不改变原字符串
+        // let color = 'red,blue,yellow,black';
+        // let color1 = color.split(',');
+        // console.log(color1); // ['red', 'blue', 'yellow', 'black']
+        // let color2 = color.split(',', 2);
+        // console.log( color2); //  ['red', 'blue']
+        //#endregion
+        //#region toLowerCase 大->小 | toUpperCase 小->大
+        // console.log('a2c'.toUpperCase()); // A2C
+        // console.log('D5F'.toLowerCase()); // d5f
+        //#endregion
+        //#region 去除空格 trim(两端) || trimStart(开头) || trimEnd(末端) 返回新串
+        // let str1 = " aoo "; 
+        // let str2 = " boo ";
+        // let str3 = " coo ";
+        // console.log(str1.trim().length); // 3
+        // console.log(str2.trimStart().length); // 4
+        // console.log(str3.trimEnd().length); // 4
+        //#endregion
+    </script>
+</body>
+
+</html>

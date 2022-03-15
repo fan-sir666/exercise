@@ -4,16 +4,7 @@ const { config } = require('./config');
 const dbConfig = config[process.env.DB_ENV]
 
 // 连接数据库配置信息
-var pool = mysql.createPool(
-    dbConfig
-    // {
-    //     connectionLimit: 10, // 最大连接数
-    //     host: 'localhost', // 主机
-    //     user: 'root', // 用户名
-    //     password: '123123', // 密码
-    //     database: 'letao_db' // 数据库名称
-    // }
-);
+var pool = mysql.createPool(dbConfig);
 
 //  创建连接   sql：sql语句
 module.exports.query = (sql, values) => {
