@@ -10,7 +10,6 @@ function* searchPackages(action) {
                 text: action.payload,
             },
         });
-        console.log(data);
         yield put(
             search_packages_success(data.objects.map((item) => item.package.name))
         );
