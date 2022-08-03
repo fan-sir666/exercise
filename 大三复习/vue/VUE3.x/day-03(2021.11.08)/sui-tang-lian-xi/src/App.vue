@@ -4,9 +4,9 @@
   <!-- 组件的双向数据绑定 -->
   <!-- <ComponentVmodel></ComponentVmodel> -->
   <!-- 防抖 -->
-  <!-- <Debounce></Debounce> -->
+  <Debounce></Debounce>
   <!-- customRef组件 -->
-  <ComponentCustomRef></ComponentCustomRef>
+  <!-- <ComponentCustomRef></ComponentCustomRef> -->
 </template>
 
 <script>
